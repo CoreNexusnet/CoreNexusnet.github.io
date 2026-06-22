@@ -76,16 +76,17 @@
 
         nav {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.3rem;
+            flex-wrap: wrap;
         }
 
         nav a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
             transition: all 0.2s;
-            padding: 0.4rem 0.8rem;
+            padding: 0.4rem 0.7rem;
             border-radius: 6px;
         }
 
@@ -124,7 +125,7 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 340px));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
@@ -307,6 +308,7 @@
                 <a href="#tecnologia">Tecnología</a>
                 <a href="#salud">Salud</a>
                 <a href="#belleza">Belleza</a>
+                <a href="#oficios">Oficios</a>
             </nav>
         </header>
 
@@ -364,22 +366,22 @@
             <h2 class="section-title" id="salud">🌱 Programas de Salud y Bienestar</h2>
             <div class="grid">
                 
-                <!-- INICIO CURSO: SALUD EJEMPLO (Reemplazar cuando tengas el link) -->
-                <div class="card" onclick="window.location.hash='curso-salud-placeholder';">
-                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=400&q=80" alt="Salud" class="card-image">
+                <!-- INICIO CURSO: 550 HERRAMIENTAS TERAPIAS -->
+                <div class="card" onclick="window.location.hash='curso-terapias';">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=400&q=80" alt="Terapias" class="card-image">
                     <div class="card-content">
                         <div>
-                            <span class="badge">Nutrición</span>
-                            <h3 class="card-title">Nutrición Funcional Integrada</h3>
-                            <p class="card-description">Optimiza tu salud y rendimiento mediante biohacking nutricional.</p>
+                            <span class="badge">Salud</span>
+                            <h3 class="card-title">550 Herramientas para Terapias</h3>
+                            <p class="card-description">Manual completo y recursos prácticos avanzados para el soporte terapéutico integral.</p>
                         </div>
                         <div class="card-footer-meta">
-                            <div class="price-tag">39.00 <span>USD</span></div>
+                            <div class="price-tag">12.99 <span>USD</span></div>
                             <span class="btn btn-outline">Ver Detalles</span>
                         </div>
                     </div>
                 </div>
-                <!-- FIN CURSO: SALUD EJEMPLO -->
+                <!-- FIN CURSO: 550 HERRAMIENTAS TERAPIAS -->
 
             </div>
 
@@ -389,22 +391,81 @@
             <h2 class="section-title" id="belleza">✨ Especializaciones en Estética y Belleza</h2>
             <div class="grid">
                 
-                <!-- INICIO CURSO: BELLEZA EJEMPLO (Reemplazar cuando tengas el link) -->
-                <div class="card" onclick="window.location.hash='curso-belleza-placeholder';">
-                    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=400&q=80" alt="Estética" class="card-image">
+                <!-- INICIO CURSO: TÉCNICAS PEDICURISTAS -->
+                <div class="card" onclick="window.location.hash='curso-pedicura';">
+                    <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=400&q=80" alt="Pedicura" class="card-image">
                     <div class="card-content">
                         <div>
                             <span class="badge">Estética</span>
-                            <h3 class="card-title">Cosmetología Avanzada & Spa</h3>
-                            <p class="card-description">Aprende técnicas profesionales de cuidado dermatológico y estética.</p>
+                            <h3 class="card-title">Técnicas Avanzadas para Pedicuristas</h3>
+                            <p class="card-description">Formación profesional en cuidado, embellecimiento y tratamiento podológico especializado.</p>
                         </div>
                         <div class="card-footer-meta">
-                            <div class="price-tag">47.00 <span>USD</span></div>
+                            <div class="price-tag">24.00 <span>USD</span></div>
                             <span class="btn btn-outline">Ver Detalles</span>
                         </div>
                     </div>
                 </div>
-                <!-- FIN CURSO: BELLEZA EJEMPLO -->
+                <!-- FIN CURSO: TÉCNICAS PEDICURISTAS -->
+
+            </div>
+
+            <!-- ================================================================= -->
+            <!-- CATEGORÍA: OFICIOS -->
+            <!-- ================================================================= -->
+            <h2 class="section-title" id="oficios">🛠️ Capacitación Técnica & Oficios Profesionales</h2>
+            <div class="grid">
+                
+                <!-- INICIO CURSO: DIBUJO PROFESIONAL -->
+                <div class="card" onclick="window.location.hash='curso-dibujo';">
+                    <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=400&q=80" alt="Dibujo" class="card-image">
+                    <div class="card-content">
+                        <div>
+                            <span class="badge">Arte</span>
+                            <h3 class="card-title">Aprende Dibujo Profesional desde Cero</h3>
+                            <p class="card-description">Desarrolla habilidades técnicas de ilustración, proporción y sombreado académico.</p>
+                        </div>
+                        <div class="card-footer-meta">
+                            <div class="price-tag">24.00 <span>USD</span></div>
+                            <span class="btn btn-outline">Ver Detalles</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN CURSO: DIBUJO PROFESIONAL -->
+
+                <!-- INICIO CURSO: MECÁNICA AUTOMOTRIZ -->
+                <div class="card" onclick="window.location.hash='curso-mecanica';">
+                    <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=400&q=80" alt="Mecánica" class="card-image">
+                    <div class="card-content">
+                        <div>
+                            <span class="badge">Técnico</span>
+                            <h3 class="card-title">Mecánica Automotriz Completa</h3>
+                            <p class="card-description">Manual integral de diagnóstico, reparación y mantenimiento de sistemas vehiculares.</p>
+                        </div>
+                        <div class="card-footer-meta">
+                            <div class="price-tag">24.00 <span>USD</span></div>
+                            <span class="btn btn-outline">Ver Detalles</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN CURSO: MECÁNICA AUTOMOTRIZ -->
+
+                <!-- INICIO CURSO: ALBAÑILERÍA -->
+                <div class="card" onclick="window.location.hash='curso-albanileria';">
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80" alt="Albañilería" class="card-image">
+                    <div class="card-content">
+                        <div>
+                            <span class="badge">Construcción</span>
+                            <h3 class="card-title">Curso de Albañilería</h3>
+                            <p class="card-description">Aprende técnicas estructurales de construcción, cimentación y acabados profesionales.</p>
+                        </div>
+                        <div class="card-footer-meta">
+                            <div class="price-tag">24.00 <span>USD</span></div>
+                            <span class="btn btn-outline">Ver Detalles</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN CURSO: ALBAÑILERÍA -->
 
             </div>
 
@@ -413,7 +474,7 @@
     </div>
 
     <!-- ================================================================= -->
-    <!-- MODALES / INTERNAS DE LOS CURSOS -->
+    <!-- MODALES / VISTAS INTERNAS DE LOS PRODUCTOS -->
     <!-- ================================================================= -->
 
     <!-- DETALLE: MÁSTER EN AUTOMATIZACIÓN E IA -->
@@ -466,41 +527,126 @@
         </div>
     </div>
 
-    <!-- DETALLE: SALUD PLACEHOLDER -->
-    <div id="curso-salud-placeholder" class="modal">
+    <!-- DETALLE: 550 HERRAMIENTAS TERAPIAS -->
+    <div id="curso-terapias" class="modal">
         <div class="modal-content">
             <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=500&q=80" alt="Salud" style="width:100%; height:160px; object-fit:cover;">
+            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=500&q=80" alt="Terapias" style="width:100%; height:160px; object-fit:cover;">
             <div class="modal-body">
-                <span class="badge">Nutrición</span>
-                <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">Nutrición Funcional Integrada</h2>
-                <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Optimiza tu salud y rendimiento mediante biohacking nutricional.</p>
+                <span class="badge">Salud</span>
+                <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">550 Herramientas para Terapias</h2>
+                <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Manual completo y recursos prácticos avanzados para el soporte terapéutico.</p>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">
-                    Programa avanzado enfocado en la estructuración de planes alimenticios de alta eficiencia, ayuno intermitente estratégico y suplementación celular optimizada.
+                    Accede a una recopilación masiva de plantillas, ejercicios y dinámicas profesionales estructuradas para potenciar el desarrollo de intervenciones clínicas y terapias de acompañamiento.
                 </p>
+                <ul class="modal-info-list">
+                    <li>Formato: Material descargable con actualizaciones.</li>
+                    <li>Ejes: Guías de intervención, mapas mentales y recursos gráficos.</li>
+                    <li>Bonos adicionales incluidos en la oferta actual.</li>
+                </ul>
                 <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">39.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Enlace de afiliado no configurado aún.'); return false;">Inscribirse Ahora</a>
+                    <div class="price-tag" style="font-size: 1.6rem;">12.99 <span style="font-size: 0.85rem;">USD</span></div>
+                    <a href="https://go.hotmart.com/D106435780T" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- DETALLE: BELLEZA PLACEHOLDER -->
-    <div id="curso-belleza-placeholder" class="modal">
+    <!-- DETALLE: TÉCNICAS PEDICURISTAS -->
+    <div id="curso-pedicura" class="modal">
         <div class="modal-content">
             <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=500&q=80" alt="Belleza" style="width:100%; height:160px; object-fit:cover;">
+            <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=500&q=80" alt="Pedicura" style="width:100%; height:160px; object-fit:cover;">
             <div class="modal-body">
                 <span class="badge">Estética</span>
-                <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">Cosmetología Avanzada & Spa</h2>
-                <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Aprende técnicas profesionales de cuidado dermatológico.</p>
+                <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">Técnicas Avanzadas para Pedicuristas</h2>
+                <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Formación profesional en cuidado y tratamiento podológico especializado.</p>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">
-                    Formación integral en tratamientos faciales, aparatología estética moderna y gestión comercial de centros de belleza profesionales.
+                    Especialización técnica enfocada en protocolos de estética profunda, manejo de instrumental, asepsia, perfilado clínico y masajes relajantes para la salud podal.
                 </p>
+                <ul class="modal-info-list">
+                    <li>Formato: Video digital en alta definición.</li>
+                    <li>Ejes: Diagnóstico cosmético, cuidado preventivo y acabado estético.</li>
+                    <li>Certificado de aprobación descargable.</li>
+                </ul>
                 <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">47.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Enlace de afiliado no configurado aún.'); return false;">Inscribirse Ahora</a>
+                    <div class="price-tag" style="font-size: 1.6rem;">24.00 <span style="font-size: 0.85rem;">USD</span></div>
+                    <a href="https://go.hotmart.com/O106435790V" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETALLE: DIBUJO PROFESIONAL -->
+    <div id="curso-dibujo" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-modal">&times;</a>
+            <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=500&q=80" alt="Dibujo" style="width:100%; height:160px; object-fit:cover;">
+            <div class="modal-body">
+                <span class="badge">Arte</span>
+                <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">Aprende Dibujo Profesional desde Cero</h2>
+                <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Desarrolla habilidades técnicas de ilustración, proporción y sombreado.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Formación paso a paso para dominar las líneas de encaje, perspectiva tridimensional, anatomía básica, texturas y el uso correcto de grafito y tintas.
+                </p>
+                <ul class="modal-info-list">
+                    <li>Formato: Ejercicios guiados con plantillas imprimibles.</li>
+                    <li>Ejes: Volumen, luces, sombras y composición visual.</li>
+                    <li>Comunidad privada para corrección de portafolios.</li>
+                </ul>
+                <div class="card-footer-meta" style="margin-top: 1.5rem;">
+                    <div class="price-tag" style="font-size: 1.6rem;">24.00 <span style="font-size: 0.85rem;">USD</span></div>
+                    <a href="https://go.hotmart.com/E106435792I" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETALLE: MECÁNICA AUTOMOTRIZ -->
+    <div id="curso-mecanica" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-modal">&times;</a>
+            <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=500&q=80" alt="Mecánica" style="width:100%; height:160px; object-fit:cover;">
+            <div class="modal-body">
+                <span class="badge">Técnico</span>
+                <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">Mecánica Automotriz Completa</h2>
+                <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Manual integral de diagnóstico, reparación y mantenimiento vehicular.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Aprende los fundamentos operativos de motores de combustión, sistemas de frenos, suspensión, transmisiones y diagnóstico electrónico básico OBD2.
+                </p>
+                <ul class="modal-info-list">
+                    <li>Formato: Módulos teóricos-prácticos detallados.</li>
+                    <li>Ejes: Circuitos eléctricos, inyección y mantenimiento preventivo.</li>
+                    <li>Ideal para emprendedores mecánicos o entusiastas.</li>
+                </ul>
+                <div class="card-footer-meta" style="margin-top: 1.5rem;">
+                    <div class="price-tag" style="font-size: 1.6rem;">24.00 <span style="font-size: 0.85rem;">USD</span></div>
+                    <a href="https://go.hotmart.com/T106435803O" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETALLE: ALBAÑILERÍA -->
+    <div id="curso-albanileria" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-modal">&times;</a>
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=500&q=80" alt="Albañilería" style="width:100%; height:160px; object-fit:cover;">
+            <div class="modal-body">
+                <span class="badge">Construcción</span>
+                <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">Curso de Albañilería</h2>
+                <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Aprende técnicas estructurales de construcción y acabados.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Formación práctica sobre cálculo de materiales, preparación de mezclas, levantamiento seguro de muros, nivelación, revoques y colocación de revestimientos cerámicos.
+                </p>
+                <ul class="modal-info-list">
+                    <li>Formato: Guías visuales paso a paso de alta claridad.</li>
+                    <li>Ejes: Planos básicos, seguridad estructural y terminaciones.</li>
+                    <li>Acceso ilimitado permanente al contenido.</li>
+                </ul>
+                <div class="card-footer-meta" style="margin-top: 1.5rem;">
+                    <div class="price-tag" style="font-size: 1.6rem;">24.00 <span style="font-size: 0.85rem;">USD</span></div>
+                    <a href="https://go.hotmart.com/A106435821G" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
                 </div>
             </div>
         </div>
