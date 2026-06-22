@@ -8,7 +8,6 @@
         :root {
             --bg-main: #0b0f19;
             --bg-glow: linear-gradient(135deg, #0b0f19 0%, #151b26 100%);
-            /* FONDO GRIS GRAFITO SEMI-TRANSPARENTE PARA ELIMINAR EL BLANCO CHOCANTE */
             --surface-wrapper: rgba(28, 33, 43, 0.95);
             --surface-card: #222a36;
             --text-main: #e2e8f0;
@@ -43,7 +42,6 @@
             justify-content: space-between;
         }
 
-        /* CAPA INTERMEDIA GRIS OSCURA QUE ELIMINA EL FONDO BLANCO */
         .app-wrapper {
             max-width: 1200px;
             width: 94%;
@@ -62,6 +60,8 @@
             margin-bottom: 2.5rem;
             padding-bottom: 1.2rem;
             border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 1.5rem;
         }
 
         .logo {
@@ -74,10 +74,9 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* MENÚ DE NAVEGACIÓN COMPACTO */
         nav {
             display: flex;
-            gap: 1.2rem;
+            gap: 0.5rem;
         }
 
         nav a {
@@ -85,14 +84,14 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 700;
-            transition: color 0.2s;
+            transition: all 0.2s;
             padding: 0.4rem 0.8rem;
             border-radius: 6px;
         }
 
         nav a:hover {
             color: var(--accent);
-            background: rgba(56, 189, 248, 0.05);
+            background: rgba(56, 189, 248, 0.08);
         }
 
         .hero {
@@ -120,20 +119,16 @@
             margin-bottom: 1.5rem;
             padding-bottom: 0.4rem;
             border-bottom: 2px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            margin-top: 3rem;
         }
 
-        /* GRID COMPACTO DE TRES COLUMNAS - TARJETAS MÁS PEQUEÑAS */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 340px));
             gap: 1.5rem;
-            margin-bottom: 3.5rem;
+            margin-bottom: 2rem;
         }
 
-        /* TARJETAS OPTIMIZADAS Y REDUCIDAS */
         .card {
             background: var(--surface-card);
             border: 1px solid var(--border);
@@ -231,7 +226,6 @@
         .btn-outline { border: 1px solid var(--border); color: var(--text-main); background: transparent; }
         .btn-outline:hover { background: rgba(255, 255, 255, 0.05); }
 
-        /* MODALES COORDINADOS EN COLOR GRIS GRAFITO */
         .modal {
             display: none;
             position: fixed;
@@ -310,9 +304,9 @@
         <header>
             <div class="logo">CORE NEXUS</div>
             <nav>
-                <a href="#destacados">Destacados</a>
-                <a href="#utiles">Más Útiles</a>
-                <a href="#descuentos">Ofertas</a>
+                <a href="#tecnologia">Tecnología</a>
+                <a href="#salud">Salud</a>
+                <a href="#belleza">Belleza</a>
             </nav>
         </header>
 
@@ -323,9 +317,9 @@
             </section>
 
             <!-- ================================================================= -->
-            <!-- CATEGORÍA: DESTACADOS -->
+            <!-- CATEGORÍA: TECNOLOGÍA -->
             <!-- ================================================================= -->
-            <h2 class="section-title" id="destacados">🔥 Selección Destacada</h2>
+            <h2 class="section-title" id="tecnologia">💻 Hub de Tecnología e Inteligencia Artificial</h2>
             <div class="grid">
                 
                 <!-- INICIO CURSO: MÁSTER EN AUTOMATIZACIÓN E IA -->
@@ -333,7 +327,7 @@
                     <img src="https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=400&q=80" alt="IA" class="card-image">
                     <div class="card-content">
                         <div>
-                            <span class="badge">Más Vendido</span>
+                            <span class="badge">Especialización</span>
                             <h3 class="card-title">Máster en Automatización e IA</h3>
                             <p class="card-description">Domina la integración de IA y flujos autónomos empresariales.</p>
                         </div>
@@ -345,20 +339,12 @@
                 </div>
                 <!-- FIN CURSO: MÁSTER EN AUTOMATIZACIÓN E IA -->
 
-            </div>
-
-            <!-- ================================================================= -->
-            <!-- CATEGORÍA: MÁS ÚTILES -->
-            <!-- ================================================================= -->
-            <h2 class="section-title" id="utiles">⚡ Los Más Útiles</h2>
-            <div class="grid">
-                
                 <!-- INICIO CURSO: AUTOMATIZACIÓN DE NEGOCIOS -->
                 <div class="card" onclick="window.location.hash='curso-negocios';">
                     <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" alt="Negocios" class="card-image">
                     <div class="card-content">
                         <div>
-                            <span class="badge">Eficiencia Operativa</span>
+                            <span class="badge">Sistemas</span>
                             <h3 class="card-title">Master en Automatización de Negocios</h3>
                             <p class="card-description">Automatiza las operaciones comerciales de tu negocio digital.</p>
                         </div>
@@ -373,11 +359,53 @@
             </div>
 
             <!-- ================================================================= -->
-            <!-- CATEGORÍA: OFERTAS Y DESCUENTOS -->
+            <!-- CATEGORÍA: SALUD -->
             <!-- ================================================================= -->
-            <h2 class="section-title" id="descuentos">💎 Descuentos Especiales</h2>
+            <h2 class="section-title" id="salud">🌱 Programas de Salud y Bienestar</h2>
             <div class="grid">
-                <!-- Los bloques de ofertas e infoproductos futuros se inyectan en esta sección -->
+                
+                <!-- INICIO CURSO: SALUD EJEMPLO (Reemplazar cuando tengas el link) -->
+                <div class="card" onclick="window.location.hash='curso-salud-placeholder';">
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=400&q=80" alt="Salud" class="card-image">
+                    <div class="card-content">
+                        <div>
+                            <span class="badge">Nutrición</span>
+                            <h3 class="card-title">Nutrición Funcional Integrada</h3>
+                            <p class="card-description">Optimiza tu salud y rendimiento mediante biohacking nutricional.</p>
+                        </div>
+                        <div class="card-footer-meta">
+                            <div class="price-tag">39.00 <span>USD</span></div>
+                            <span class="btn btn-outline">Ver Detalles</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN CURSO: SALUD EJEMPLO -->
+
+            </div>
+
+            <!-- ================================================================= -->
+            <!-- CATEGORÍA: BELLEZA -->
+            <!-- ================================================================= -->
+            <h2 class="section-title" id="belleza">✨ Especializaciones en Estética y Belleza</h2>
+            <div class="grid">
+                
+                <!-- INICIO CURSO: BELLEZA EJEMPLO (Reemplazar cuando tengas el link) -->
+                <div class="card" onclick="window.location.hash='curso-belleza-placeholder';">
+                    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=400&q=80" alt="Estética" class="card-image">
+                    <div class="card-content">
+                        <div>
+                            <span class="badge">Estética</span>
+                            <h3 class="card-title">Cosmetología Avanzada & Spa</h3>
+                            <p class="card-description">Aprende técnicas profesionales de cuidado dermatológico y estética.</p>
+                        </div>
+                        <div class="card-footer-meta">
+                            <div class="price-tag">47.00 <span>USD</span></div>
+                            <span class="btn btn-outline">Ver Detalles</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN CURSO: BELLEZA EJEMPLO -->
+
             </div>
 
         </main>
@@ -385,7 +413,7 @@
     </div>
 
     <!-- ================================================================= -->
-    <!-- VENTANAS INTERNAS (MODALES DE AUTOSERVICIO COHERENTES) -->
+    <!-- MODALES / INTERNAS DE LOS CURSOS -->
     <!-- ================================================================= -->
 
     <!-- DETALLE: MÁSTER EN AUTOMATIZACIÓN E IA -->
@@ -394,7 +422,7 @@
             <a href="#" class="close-modal">&times;</a>
             <img src="https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=500&q=80" alt="IA" style="width:100%; height:160px; object-fit:cover;">
             <div class="modal-body">
-                <span class="badge">Más Vendido</span>
+                <span class="badge">Especialización</span>
                 <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">Máster en Automatización e IA</h2>
                 <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Domina la integración de IA y flujos autónomos empresariales.</p>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">
@@ -419,7 +447,7 @@
             <a href="#" class="close-modal">&times;</a>
             <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" alt="Negocios" style="width:100%; height:160px; object-fit:cover;">
             <div class="modal-body">
-                <span class="badge">Eficiencia Operativa</span>
+                <span class="badge">Sistemas</span>
                 <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">Master en Automatización de Negocios</h2>
                 <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Automatiza las operaciones comerciales de tu negocio digital.</p>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">
@@ -433,6 +461,46 @@
                 <div class="card-footer-meta" style="margin-top: 1.5rem;">
                     <div class="price-tag" style="font-size: 1.6rem;">22.40 <span style="font-size: 0.85rem;">USD</span></div>
                     <a href="https://go.hotmart.com/B106435549F" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETALLE: SALUD PLACEHOLDER -->
+    <div id="curso-salud-placeholder" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-modal">&times;</a>
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=500&q=80" alt="Salud" style="width:100%; height:160px; object-fit:cover;">
+            <div class="modal-body">
+                <span class="badge">Nutrición</span>
+                <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">Nutrición Funcional Integrada</h2>
+                <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Optimiza tu salud y rendimiento mediante biohacking nutricional.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Programa avanzado enfocado en la estructuración de planes alimenticios de alta eficiencia, ayuno intermitente estratégico y suplementación celular optimizada.
+                </p>
+                <div class="card-footer-meta" style="margin-top: 1.5rem;">
+                    <div class="price-tag" style="font-size: 1.6rem;">39.00 <span style="font-size: 0.85rem;">USD</span></div>
+                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Enlace de afiliado no configurado aún.'); return false;">Inscribirse Ahora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETALLE: BELLEZA PLACEHOLDER -->
+    <div id="curso-belleza-placeholder" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-modal">&times;</a>
+            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=500&q=80" alt="Belleza" style="width:100%; height:160px; object-fit:cover;">
+            <div class="modal-body">
+                <span class="badge">Estética</span>
+                <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">Cosmetología Avanzada & Spa</h2>
+                <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Aprende técnicas profesionales de cuidado dermatológico.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Formación integral en tratamientos faciales, aparatología estética moderna y gestión comercial de centros de belleza profesionales.
+                </p>
+                <div class="card-footer-meta" style="margin-top: 1.5rem;">
+                    <div class="price-tag" style="font-size: 1.6rem;">47.00 <span style="font-size: 0.85rem;">USD</span></div>
+                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Enlace de afiliado no configurado aún.'); return false;">Inscribirse Ahora</a>
                 </div>
             </div>
         </div>
