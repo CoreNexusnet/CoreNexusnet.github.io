@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Core Nexus Global | Enterprise Platform</title>
+    <title>Core Nexus Global | Enterprise Hub</title>
     <style>
         :root {
-            --bg-main: #0a0f24;
-            --bg-glow: radial-gradient(circle at 50% 0%, #1a234a 0%, #0a0f24 80%);
-            --surface-wrapper: rgba(255, 255, 255, 0.96);
-            --surface-card: #ffffff;
-            --text-main: #1f2328;
-            --text-muted: #57606a;
-            --accent: #0969da;
-            --accent-hover: #1a7fec;
-            --border: #d0d7de;
-            --border-hover: #8c959f;
-            --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 12px 28px rgba(9, 105, 218, 0.2);
+            --bg-main: #0b0f19;
+            --bg-glow: linear-gradient(135deg, #0b0f19 0%, #151b26 100%);
+            /* FONDO GRIS GRAFITO SEMI-TRANSPARENTE PARA ELIMINAR EL BLANCO CHOCANTE */
+            --surface-wrapper: rgba(28, 33, 43, 0.95);
+            --surface-card: #222a36;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #7dd3fc;
+            --border: #334155;
+            --border-hover: #475569;
+            --shadow-card: 0 4px 10px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 10px 25px rgba(56, 189, 248, 0.15);
         }
 
         * {
@@ -35,125 +36,131 @@
             background: var(--bg-main) var(--bg-glow);
             background-attachment: fixed;
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.5;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
+        /* CAPA INTERMEDIA GRIS OSCURA QUE ELIMINA EL FONDO BLANCO */
         .app-wrapper {
-            max-width: 1100px;
-            width: 92%;
-            margin: 3rem auto;
+            max-width: 1200px;
+            width: 94%;
+            margin: 2.5rem auto;
             background: var(--surface-wrapper);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 24px;
-            padding: 3rem 2.5rem;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
         }
 
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 3.5rem;
-            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.2rem;
             border-bottom: 1px solid var(--border);
-            flex-wrap: wrap;
-            gap: 1.5rem;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
             letter-spacing: -0.5px;
-            color: #0a0f24;
+            color: #ffffff;
+            background: linear-gradient(90deg, #ffffff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* MENÚ DE NAVEGACIÓN POR CATEGORÍAS */
+        /* MENÚ DE NAVEGACIÓN COMPACTO */
         nav {
             display: flex;
-            gap: 1.5rem;
+            gap: 1.2rem;
         }
 
         nav a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 700;
             transition: color 0.2s;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
         }
 
         nav a:hover {
             color: var(--accent);
+            background: rgba(56, 189, 248, 0.05);
         }
 
         .hero {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
         }
 
         .hero h1 {
-            font-size: 2.8rem;
+            font-size: 2.4rem;
             font-weight: 800;
-            color: #0a0f24;
-            margin-bottom: 0.8rem;
-            letter-spacing: -1px;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
         }
 
         .hero p {
             color: var(--text-muted);
-            font-size: 1.15rem;
-            max-width: 650px;
+            font-size: 1.05rem;
+            max-width: 600px;
             margin: 0 auto;
         }
 
         .section-title {
-            font-size: 1.4rem;
-            color: #0a0f24;
-            margin-bottom: 2rem;
-            padding-bottom: 0.5rem;
+            font-size: 1.25rem;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.4rem;
             border-bottom: 2px solid var(--border);
-            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
+        /* GRID COMPACTO DE TRES COLUMNAS - TARJETAS MÁS PEQUEÑAS */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3.5rem;
         }
 
+        /* TARJETAS OPTIMIZADAS Y REDUCIDAS */
         .card {
             background: var(--surface-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             box-shadow: var(--shadow-card);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
             cursor: pointer;
         }
 
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             border-color: var(--border-hover);
             box-shadow: var(--shadow-hover);
         }
 
         .card-image {
             width: 100%;
-            height: 180px;
+            height: 140px;
             object-fit: cover;
             border-bottom: 1px solid var(--border);
         }
 
         .card-content {
-            padding: 1.8rem;
+            padding: 1.2rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -161,31 +168,31 @@
         }
 
         .badge {
-            background: rgba(9, 105, 218, 0.08);
+            background: rgba(56, 189, 248, 0.1);
             color: var(--accent);
-            padding: 0.3rem 0.6rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
             font-weight: 700;
             display: inline-block;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(9, 105, 218, 0.15);
+            margin-bottom: 0.6rem;
+            border: 1px solid rgba(56, 189, 248, 0.15);
         }
 
         .card-title {
-            color: #0a0f24;
-            font-size: 1.35rem;
+            color: #ffffff;
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.4rem;
         }
 
         .card-description {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .card-footer-meta {
@@ -193,38 +200,38 @@
             justify-content: space-between;
             align-items: center;
             margin-top: auto;
-            padding-top: 1rem;
+            padding-top: 0.8rem;
             border-top: 1px solid var(--border);
         }
 
         .price-tag {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 800;
-            color: #0a0f24;
+            color: #ffffff;
         }
         .price-tag span {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
-            font-weight: 500;
         }
 
         .btn {
-            padding: 0.65rem 1.2rem;
-            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             transition: all 0.2s;
             border: none;
             cursor: pointer;
             text-align: center;
         }
 
-        .btn-blue { background: var(--accent); color: #ffffff; }
+        .btn-blue { background: var(--accent); color: #0b0f19; }
         .btn-blue:hover { background: var(--accent-hover); }
         .btn-outline { border: 1px solid var(--border); color: var(--text-main); background: transparent; }
-        .btn-outline:hover { background: rgba(0, 0, 0, 0.05); }
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.05); }
 
+        /* MODALES COORDINADOS EN COLOR GRIS GRAFITO */
         .modal {
             display: none;
             position: fixed;
@@ -232,7 +239,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 15, 36, 0.8);
+            background: rgba(11, 15, 25, 0.85);
             backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
@@ -242,58 +249,57 @@
         .modal:target { display: flex; }
 
         .modal-content {
-            background: #ffffff;
+            background: #1e2530;
             border: 1px solid var(--border);
-            max-width: 550px;
+            max-width: 500px;
             width: 90%;
-            border-radius: 24px;
-            padding: 0;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
             position: relative;
-            animation: modalFade 0.3s ease-out;
+            animation: modalFade 0.25s ease-out;
         }
 
         .modal-body {
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         @keyframes modalFade {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .close-modal {
             position: absolute;
-            top: 1rem;
-            right: 1.2rem;
+            top: 0.8rem;
+            right: 0.8rem;
             color: #ffffff;
-            background: rgba(0,0,0,0.5);
-            width: 32px;
-            height: 32px;
+            background: rgba(0,0,0,0.6);
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-decoration: none;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
             z-index: 10;
         }
 
         .modal-info-list {
-            margin: 1.5rem 0;
+            margin: 1.2rem 0;
             padding-left: 1.2rem;
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
-        .modal-info-list li { margin-bottom: 0.5rem; }
+        .modal-info-list li { margin-bottom: 0.4rem; }
 
         footer {
             text-align: center;
-            padding: 2.5rem;
-            color: #8b949e;
-            font-size: 0.85rem;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -304,26 +310,30 @@
         <header>
             <div class="logo">CORE NEXUS</div>
             <nav>
-                <a href="#tecnologia">Tecnología</a>
-                <a href="#salud">Salud</a>
-                <a href="#belleza">Belleza</a>
+                <a href="#destacados">Destacados</a>
+                <a href="#utiles">Más Útiles</a>
+                <a href="#descuentos">Ofertas</a>
             </nav>
         </header>
 
         <main>
             <section class="hero">
-                <h1>Plataforma Global de Aprendizaje</h1>
-                <p>Especializaciones avanzadas, entrenamientos de élite y programas certificados internacionalmente.</p>
+                <h1>Hub Tecnológico & Soluciones</h1>
+                <p>Ecosistema optimizado con accesos de élite, recursos de automatización y herramientas de alto impacto.</p>
             </section>
 
-            <h2 class="section-title" id="tecnologia">💻 Hub de Tecnología e Inteligencia Artificial</h2>
+            <!-- ================================================================= -->
+            <!-- CATEGORÍA: DESTACADOS -->
+            <!-- ================================================================= -->
+            <h2 class="section-title" id="destacados">🔥 Selección Destacada</h2>
             <div class="grid">
                 
+                <!-- INICIO CURSO: MÁSTER EN AUTOMATIZACIÓN E IA -->
                 <div class="card" onclick="window.location.hash='curso-ia';">
-                    <img src="https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80" alt="IA" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=400&q=80" alt="IA" class="card-image">
                     <div class="card-content">
                         <div>
-                            <span class="badge">Especialización Avanzada</span>
+                            <span class="badge">Más Vendido</span>
                             <h3 class="card-title">Máster en Automatización e IA</h3>
                             <p class="card-description">Domina la integración de IA y flujos autónomos empresariales.</p>
                         </div>
@@ -333,11 +343,22 @@
                         </div>
                     </div>
                 </div>
+                <!-- FIN CURSO: MÁSTER EN AUTOMATIZACIÓN E IA -->
+
+            </div>
+
+            <!-- ================================================================= -->
+            <!-- CATEGORÍA: MÁS ÚTILES -->
+            <!-- ================================================================= -->
+            <h2 class="section-title" id="utiles">⚡ Los Más Útiles</h2>
+            <div class="grid">
+                
+                <!-- INICIO CURSO: AUTOMATIZACIÓN DE NEGOCIOS -->
                 <div class="card" onclick="window.location.hash='curso-negocios';">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Negocios" class="card-image">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" alt="Negocios" class="card-image">
                     <div class="card-content">
                         <div>
-                            <span class="badge">Despliegue Global</span>
+                            <span class="badge">Eficiencia Operativa</span>
                             <h3 class="card-title">Master en Automatización de Negocios</h3>
                             <p class="card-description">Automatiza las operaciones comerciales de tu negocio digital.</p>
                         </div>
@@ -347,53 +368,61 @@
                         </div>
                     </div>
                 </div>
-                </div>
+                <!-- FIN CURSO: AUTOMATIZACIÓN DE NEGOCIOS -->
 
-            <h2 class="section-title" id="salud">🌱 Programas de Salud y Bienestar</h2>
-            <div class="grid">
-                </div>
+            </div>
 
-            <h2 class="section-title" id="belleza">✨ Especializaciones en Estética y Belleza</h2>
+            <!-- ================================================================= -->
+            <!-- CATEGORÍA: OFERTAS Y DESCUENTOS -->
+            <!-- ================================================================= -->
+            <h2 class="section-title" id="descuentos">💎 Descuentos Especiales</h2>
             <div class="grid">
-                </div>
+                <!-- Los bloques de ofertas e infoproductos futuros se inyectan en esta sección -->
+            </div>
 
         </main>
 
     </div>
 
+    <!-- ================================================================= -->
+    <!-- VENTANAS INTERNAS (MODALES DE AUTOSERVICIO COHERENTES) -->
+    <!-- ================================================================= -->
+
+    <!-- DETALLE: MÁSTER EN AUTOMATIZACIÓN E IA -->
     <div id="curso-ia" class="modal">
         <div class="modal-content">
             <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80" alt="IA" style="width:100%; height:200px; object-fit:cover;">
+            <img src="https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=500&q=80" alt="IA" style="width:100%; height:160px; object-fit:cover;">
             <div class="modal-body">
-                <span class="badge">Especialización Avanzada</span>
-                <h2 class="card-title" style="font-size: 1.8rem; margin-top: 0.5rem;">Máster en Automatización e IA</h2>
-                <p style="color: var(--accent); font-weight: 600; margin-bottom: 1rem;">Domina la integración de IA y flujos autónomos empresariales.</p>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">
+                <span class="badge">Más Vendido</span>
+                <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">Máster en Automatización e IA</h2>
+                <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Domina la integración de IA y flujos autónomos empresariales.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
                     Este programa está diseñado para ingenieros y profesionales que buscan implementar flujos de trabajo inteligentes sin intervención humana, reduciendo costos operativos drásticamente.
                 </p>
                 <ul class="modal-info-list">
-                    <li>Formato: 100% digital con acceso de por vida.</li>
+                    <li>Formato: Acceso digital inmediato de por vida.</li>
                     <li>Ejes: Modelos LLM, Webhooks, APIs de Terceros y N8N.</li>
                     <li>Certificación incluida al finalizar los módulos.</li>
                 </ul>
-                <div class="card-footer-meta" style="margin-top: 2rem;">
-                    <div class="price-tag" style="font-size: 1.8rem;">32.13 <span style="font-size: 0.9rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/A106435547L" target="_blank" class="btn btn-blue" style="padding: 0.8rem 1.8rem; font-size: 0.95rem;">Inscribirse Ahora</a>
+                <div class="card-footer-meta" style="margin-top: 1.5rem;">
+                    <div class="price-tag" style="font-size: 1.6rem;">32.13 <span style="font-size: 0.85rem;">USD</span></div>
+                    <a href="https://go.hotmart.com/A106435547L" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- DETALLE: AUTOMATIZACIÓN DE NEGOCIOS -->
     <div id="curso-negocios" class="modal">
         <div class="modal-content">
             <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Negocios" style="width:100%; height:200px; object-fit:cover;">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" alt="Negocios" style="width:100%; height:160px; object-fit:cover;">
             <div class="modal-body">
-                <span class="badge">Despliegue Global</span>
-                <h2 class="card-title" style="font-size: 1.8rem; margin-top: 0.5rem;">Master en Automatización de Negocios</h2>
-                <p style="color: var(--accent); font-weight: 600; margin-bottom: 1rem;">Automatiza las operaciones comerciales de tu negocio digital.</p>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">
+                <span class="badge">Eficiencia Operativa</span>
+                <h2 class="card-title" style="font-size: 1.5rem; margin-top: 0.3rem;">Master en Automatización de Negocios</h2>
+                <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; font-size: 0.95rem;">Automatiza las operaciones comerciales de tu negocio digital.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
                     Aprende a estructurar embudos de ventas ininterrumpidos, facturación automatizada y atención al cliente integrada con software de Inteligencia Artificial a escala masiva.
                 </p>
                 <ul class="modal-info-list">
@@ -401,16 +430,16 @@
                     <li>Ejes: Automatización de CRMs, pasarelas de pago y ERPs.</li>
                     <li>Incluye plantillas de código listas para producción.</li>
                 </ul>
-                <div class="card-footer-meta" style="margin-top: 2rem;">
-                    <div class="price-tag" style="font-size: 1.8rem;">22.40 <span style="font-size: 0.9rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/B106435549F" target="_blank" class="btn btn-blue" style="padding: 0.8rem 1.8rem; font-size: 0.95rem;">Inscribirse Ahora</a>
+                <div class="card-footer-meta" style="margin-top: 1.5rem;">
+                    <div class="price-tag" style="font-size: 1.6rem;">22.40 <span style="font-size: 0.85rem;">USD</span></div>
+                    <a href="https://go.hotmart.com/B106435549F" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
                 </div>
             </div>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 Core Nexus Global. Todos los derechos reservados.
+        &copy; 2026 Core Nexus Global. Arquitectura e Infraestructuras de Alta Disponibilidad.
     </footer>
 
 </body>
