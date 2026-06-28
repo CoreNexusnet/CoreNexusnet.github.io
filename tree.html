@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Nexus | Enlaces</title>
+    <style>
+        :root {
+            --bg-main: #050508;
+            --surface-card: #1a152c;
+            --text-main: #f1f5f9;
+            --text-muted: #cbd5e1;
+            --accent-blue: #2563eb;
+            --accent-purple: #9333ea;
+            --accent-hover: #a855f7;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg-main);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.25) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(147, 51, 234, 0.30) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(147, 51, 234, 0.15) 0px, transparent 55%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 3rem 1.2rem;
+        }
+
+        .tree {
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+        }
+
+        /* Avatar / marca */
+        .avatar {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 1.4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, rgba(37,99,235,0.25), rgba(147,51,234,0.25));
+            border: 1px solid rgba(147, 51, 234, 0.4);
+            box-shadow: 0 0 30px rgba(147, 51, 234, 0.4);
+        }
+
+        /* Logo holográfico (igual que en la web) */
+        .logo {
+            position: relative;
+            display: inline-block;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-top: 1.5rem;
+            margin-bottom: 0.4rem;
+            background: linear-gradient(100deg, #22d3ee, #3b82f6, #9333ea, #ec4899, #f59e0b, #22d3ee);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            animation: hologramShift 6s linear infinite;
+            filter: drop-shadow(0 0 6px rgba(147, 51, 234, 0.45));
+        }
+        .logo::after {
+            content: "CORE NEXUS";
+            position: absolute;
+            top: 0; left: 0;
+            background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.85) 50%, transparent 65%);
+            background-size: 250% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            pointer-events: none;
+            animation: hologramGlint 6s ease-in-out infinite;
+        }
+        @keyframes hologramShift {
+            0%   { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+        @keyframes hologramGlint {
+            0%, 100% { background-position: 180% 0; opacity: 0; }
+            45%      { opacity: 0; }
+            55%      { opacity: 1; }
+            70%      { background-position: -40% 0; opacity: 0; }
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2.2rem;
+            line-height: 1.5;
+        }
+
+        /* Botones de enlace */
+        .link-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            width: 100%;
+            padding: 1rem 1.3rem;
+            margin-bottom: 1rem;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            background: var(--surface-card);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .link-btn:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-hover);
+            box-shadow: 0 8px 24px rgba(147, 51, 234, 0.35);
+            background: #221a38;
+        }
+        .link-btn .ic {
+            font-size: 1.3rem;
+            width: 28px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .link-btn .txt { flex-grow: 1; text-align: center; }
+
+        /* Botón principal destacado */
+        .link-btn.primary {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+            border: none;
+        }
+        .link-btn.primary:hover {
+            background: linear-gradient(135deg, var(--accent-blue) 30%, var(--accent-hover) 100%);
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.45);
+        }
+
+        footer {
+            margin-top: 2.5rem;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            opacity: 0.7;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tree">
+
+        <!-- AVATAR: aquí irá la imagen de Nox o el logo cuando esté lista -->
+        <div class="logo">CORE NEXUS</div>
+        <p class="tagline">Cursos y guías digitales en tecnología, salud y belleza.<br>Acceso inmediato y precios accesibles.</p>
+
+        <!-- ============================================================= -->
+        <!-- ENLACE PRINCIPAL: apunta a la tienda (index.html del proyecto) -->
+        <!-- ============================================================= -->
+        <a href="index.html" class="link-btn primary">
+            <span class="ic">🛒</span>
+            <span class="txt">Ver todos los cursos</span>
+        </a>
+
+        <!-- ============================================================= -->
+        <!-- ENLACES FUTUROS: cuando tengas las redes, descomentá y pegá    -->
+        <!-- la URL en cada href. Copiá un bloque para agregar más.         -->
+        <!-- ============================================================= -->
+        <!--
+        <a href="PEGA_AQUI_TIKTOK" class="link-btn">
+            <span class="ic">🎵</span>
+            <span class="txt">TikTok</span>
+        </a>
+        <a href="PEGA_AQUI_INSTAGRAM" class="link-btn">
+            <span class="ic">📸</span>
+            <span class="txt">Instagram</span>
+        </a>
+        <a href="PEGA_AQUI_FACEBOOK" class="link-btn">
+            <span class="ic">👍</span>
+            <span class="txt">Facebook</span>
+        </a>
+        <a href="PEGA_AQUI_WHATSAPP" class="link-btn">
+            <span class="ic">💬</span>
+            <span class="txt">Escríbeme por WhatsApp</span>
+        </a>
+        -->
+
+        <footer>&copy; 2026 Core Nexus Global</footer>
+
+    </div>
+
+</body>
+</html>
