@@ -76,6 +76,7 @@
             background: linear-gradient(90deg, #2563eb, #9333ea);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            cursor: pointer;
         }
 
         nav {
@@ -84,39 +85,71 @@
             flex-wrap: wrap;
         }
 
-        nav a {
+        nav button {
             color: var(--text-muted);
+            background: transparent;
+            border: none;
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 700;
             transition: all 0.2s;
-            padding: 0.4rem 0.7rem;
+            padding: 0.45rem 0.9rem;
             border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
         }
 
-        nav a:hover {
+        nav button:hover {
             color: #ffffff;
             background: rgba(147, 51, 234, 0.15);
+        }
+
+        nav button.active {
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
         }
 
         .hero {
             text-align: center;
             margin-bottom: 3rem;
+            padding: 2rem 0 1rem;
+        }
+
+        .hero .eyebrow {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #c4b5fd;
+            border: 1px solid rgba(147, 51, 234, 0.4);
+            background: rgba(147, 51, 234, 0.12);
+            padding: 0.3rem 0.9rem;
+            border-radius: 100px;
+            margin-bottom: 1.2rem;
         }
 
         .hero h1 {
-            font-size: 2.4rem;
+            font-size: 2.8rem;
             font-weight: 800;
             color: #ffffff;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 10px rgba(147, 51, 234, 0.3);
+            margin-bottom: 0.8rem;
+            text-shadow: 0 2px 20px rgba(147, 51, 234, 0.35);
+            letter-spacing: -1px;
         }
 
         .hero p {
             color: var(--text-muted);
-            font-size: 1.05rem;
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: 1.08rem;
+            max-width: 620px;
+            margin: 0 auto 1.8rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .section-title {
@@ -125,7 +158,24 @@
             margin-bottom: 1.5rem;
             padding-bottom: 0.4rem;
             border-bottom: 2px solid var(--border);
-            margin-top: 3rem;
+        }
+
+        .section-lead {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            max-width: 640px;
+        }
+
+        /* Secciones navegables */
+        .page-section { display: none; }
+        .page-section.visible {
+            display: block;
+            animation: sectionFade 0.45s ease;
+        }
+        @keyframes sectionFade {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .grid {
@@ -155,11 +205,22 @@
             box-shadow: 0 10px 25px rgba(147, 51, 234, 0.25);
         }
 
+        /* Entrada animada de tarjetas (staggered) */
+        .grid.animate-in .card {
+            opacity: 0;
+            animation: cardRise 0.5s ease forwards;
+        }
+        @keyframes cardRise {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .card-image {
             width: 100%;
             height: 140px;
             object-fit: cover;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            background: #221a38;
         }
 
         .card-content {
@@ -199,6 +260,14 @@
             margin-bottom: 1.2rem;
         }
 
+        /* En destacados permitimos resumen de 2 líneas */
+        .card.featured .card-description {
+            white-space: normal;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
         .card-footer-meta {
             display: flex;
             justify-content: space-between;
@@ -230,6 +299,7 @@
             text-align: center;
             display: inline-block;
             will-change: box-shadow;
+            font-family: inherit;
         }
 
         .btn-blue { 
@@ -251,58 +321,88 @@
             border-color: rgba(255, 255, 255, 0.25);
         }
 
+        .btn-lg { padding: 0.7rem 1.6rem; font-size: 0.9rem; }
+
+        /* Tarjetas de acceso a categorías (en inicio) */
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cat-card {
+            position: relative;
+            border-radius: 14px;
+            padding: 1.8rem 1.5rem;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(147, 51, 234, 0.25);
+            background: var(--surface-card);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .cat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-hover);
+            box-shadow: 0 12px 30px rgba(147, 51, 234, 0.3);
+        }
+        .cat-card .cat-icon { font-size: 2rem; margin-bottom: 0.6rem; }
+        .cat-card h3 { color: #fff; font-size: 1.2rem; margin-bottom: 0.25rem; }
+        .cat-card p { color: var(--text-muted); font-size: 0.82rem; }
+        .cat-card .cat-count {
+            position: absolute; top: 1rem; right: 1.1rem;
+            font-size: 0.72rem; font-weight: 700; color: #c4b5fd;
+            background: rgba(147,51,234,0.15); border: 1px solid rgba(147,51,234,0.3);
+            padding: 0.2rem 0.55rem; border-radius: 100px;
+        }
+        .cat-tech { background: linear-gradient(135deg, rgba(37,99,235,0.25), rgba(26,21,44,0.9)); }
+        .cat-salud { background: linear-gradient(135deg, rgba(16,185,129,0.22), rgba(26,21,44,0.9)); }
+        .cat-belleza { background: linear-gradient(135deg, rgba(236,72,153,0.22), rgba(26,21,44,0.9)); }
+
+        .back-link {
+            background: none; border: none; color: #c4b5fd; cursor: pointer;
+            font-size: 0.85rem; font-weight: 700; font-family: inherit;
+            padding: 0; margin-bottom: 1.2rem; display: inline-flex; align-items: center; gap: 0.3rem;
+        }
+        .back-link:hover { color: #fff; }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(5, 5, 8, 0.85);
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
-
         .modal:target { display: flex; }
-
         .modal-content {
             background: #141124;
             border: 1px solid rgba(147, 51, 234, 0.3);
-            max-width: 500px;
-            width: 90%;
+            max-width: 500px; width: 90%;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 25px 50px rgba(0,0,0,0.8);
             position: relative;
             animation: modalFade 0.2s ease-out;
         }
-
-        .modal-body {
-            padding: 1.5rem;
-        }
-
+        .modal-body { padding: 1.5rem; }
         @keyframes modalFade {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .close-modal {
-            position: absolute;
-            top: 0.8rem;
-            right: 0.8rem;
-            color: #ffffff;
-            background: rgba(0,0,0,0.6);
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: bold;
-            z-index: 10;
+            position: absolute; top: 0.8rem; right: 0.8rem;
+            color: #ffffff; background: rgba(0,0,0,0.6);
+            width: 28px; height: 28px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none; font-size: 1rem; font-weight: bold; z-index: 10;
         }
 
         footer {
@@ -311,6 +411,15 @@
             color: var(--text-muted);
             font-size: 0.8rem;
         }
+
+        @media (max-width: 600px) {
+            .app-wrapper { padding: 1.4rem; }
+            .hero h1 { font-size: 2rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
     </style>
 </head>
 <body>
@@ -318,1515 +427,638 @@
     <div class="app-wrapper">
         
         <header>
-            <div class="logo">CORE NEXUS</div>
+            <div class="logo" onclick="showSection('inicio')">CORE NEXUS</div>
             <nav>
-                <a href="#tecnologia">Tecnología</a>
-                <a href="#salud">Salud</a>
-                <a href="#belleza">Belleza</a>
+                <button data-nav="inicio" class="active" onclick="showSection('inicio')">Inicio</button>
+                <button data-nav="tecnologia" onclick="showSection('tecnologia')">Tecnología</button>
+                <button data-nav="salud" onclick="showSection('salud')">Salud</button>
+                <button data-nav="belleza" onclick="showSection('belleza')">Belleza</button>
             </nav>
         </header>
 
         <main>
-            <section class="hero">
-                <h1>Hub Tecnológico & Soluciones</h1>
-                <p>Ecosistema optimizado con accesos de élite, recursos de automatización y herramientas de alto impacto.</p>
+
+            <!-- ============================= INICIO ============================= -->
+            <section id="inicio" class="page-section visible">
+                <div class="hero">
+                    <span class="eyebrow">Formación digital de alto impacto</span>
+                    <h1>Aprende algo que cambie tu rumbo</h1>
+                    <p>Cursos y guías prácticas en tecnología, salud y belleza. Acceso inmediato, contenido directo al grano y precios accesibles.</p>
+                    <div class="hero-cta">
+                        <button class="btn btn-blue btn-lg" onclick="showSection('tecnologia')">Explorar cursos</button>
+                        <button class="btn btn-outline btn-lg" onclick="document.getElementById('destacados').scrollIntoView({behavior:'smooth'})">Ver destacados</button>
+                    </div>
+                </div>
+
+                <h2 class="section-title" id="destacados">⭐ Cursos destacados</h2>
+                <p class="section-lead">Una selección de lo mejor de cada categoría para empezar hoy mismo.</p>
+                <div class="grid" id="featured-grid">
+
+                    <div class="card featured" onclick="window.location.hash='curso-ia';">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=400&q=80" alt="IA" class="card-image">
+                        <div class="card-content">
+                            <div>
+                                <span class="badge">Tecnología</span>
+                                <h3 class="card-title">Máster en Automatización e IA</h3>
+                                <p class="card-description">Integra inteligencia artificial y flujos autónomos en tu empresa, de principio a fin.</p>
+                            </div>
+                            <div class="card-footer-meta">
+                                <div class="price-tag">32.13 <span>USD</span></div>
+                                <span class="btn btn-outline">Ver Detalles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card featured" onclick="window.location.hash='tecnologia-chatgpt';">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80" alt="ChatGPT" class="card-image">
+                        <div class="card-content">
+                            <div>
+                                <span class="badge">Tecnología</span>
+                                <h3 class="card-title">Haz que ChatGPT trabaje para ti</h3>
+                                <p class="card-description">La guía imprescindible para integrar IA en tus tareas y multiplicar tu productividad.</p>
+                            </div>
+                            <div class="card-footer-meta">
+                                <div class="price-tag">19.90 <span>USD</span></div>
+                                <span class="btn btn-outline">Ver Detalles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card featured" onclick="window.location.hash='tecnologia-herramientas-ia';">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=400&q=80" alt="Herramientas IA" class="card-image">
+                        <div class="card-content">
+                            <div>
+                                <span class="badge">Tecnología</span>
+                                <h3 class="card-title">Mejores Herramientas de la IA</h3>
+                                <p class="card-description">Compendio práctico para dominar las soluciones de IA más potentes del mercado.</p>
+                            </div>
+                            <div class="card-footer-meta">
+                                <div class="price-tag">28.83 <span>USD</span></div>
+                                <span class="btn btn-outline">Ver Detalles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card featured" onclick="window.location.hash='salud-keto';">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80" alt="Keto" class="card-image">
+                        <div class="card-content">
+                            <div>
+                                <span class="badge">Salud</span>
+                                <h3 class="card-title">Plan 28 Días Keto</h3>
+                                <p class="card-description">Estructura nutricional paso a paso para alcanzar tus objetivos cetogénicos.</p>
+                            </div>
+                            <div class="card-footer-meta">
+                                <div class="price-tag">25.00 <span>USD</span></div>
+                                <span class="btn btn-outline">Ver Detalles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card featured" onclick="window.location.hash='salud-reto-keto-facil';">
+                        <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=400&q=80" alt="Reto Keto" class="card-image">
+                        <div class="card-content">
+                            <div>
+                                <span class="badge">Salud</span>
+                                <h3 class="card-title">Reto Keto Fácil</h3>
+                                <p class="card-description">Programa cetogénico con menús diarios y estrategias sencillas de adaptación.</p>
+                            </div>
+                            <div class="card-footer-meta">
+                                <div class="price-tag">24.99 <span>USD</span></div>
+                                <span class="btn btn-outline">Ver Detalles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card featured" onclick="window.location.hash='salud-diabeticos';">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80" alt="Diabéticos" class="card-image">
+                        <div class="card-content">
+                            <div>
+                                <span class="badge">Salud</span>
+                                <h3 class="card-title">200 Recetas para Diabéticos + Bonos</h3>
+                                <p class="card-description">Guía culinaria saludable y recursos extra para el control metabólico diario.</p>
+                            </div>
+                            <div class="card-footer-meta">
+                                <div class="price-tag">19.99 <span>USD</span></div>
+                                <span class="btn btn-outline">Ver Detalles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card featured" onclick="window.location.hash='belleza-kit-unas';">
+                        <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?auto=format&fit=crop&w=400&q=80" alt="Uñas" class="card-image">
+                        <div class="card-content">
+                            <div>
+                                <span class="badge">Belleza</span>
+                                <h3 class="card-title">Kit Profesional 42 Libros - Uñas Acrílicas</h3>
+                                <p class="card-description">Técnicas, diseños, cosmetología y derechos de reventa en un solo kit completo.</p>
+                            </div>
+                            <div class="card-footer-meta">
+                                <div class="price-tag">50.00 <span>USD</span></div>
+                                <span class="btn btn-outline">Ver Detalles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card featured" onclick="window.location.hash='belleza-capilografo';">
+                        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=400&q=80" alt="Capilógrafo" class="card-image">
+                        <div class="card-content">
+                            <div>
+                                <span class="badge">Belleza</span>
+                                <h3 class="card-title">Exploración Capilar con Capilógrafo</h3>
+                                <p class="card-description">Análisis capilar profesional y protocolos cosméticos de precisión.</p>
+                            </div>
+                            <div class="card-footer-meta">
+                                <div class="price-tag">40.00 <span>USD</span></div>
+                                <span class="btn btn-outline">Ver Detalles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <h2 class="section-title">Explora por categoría</h2>
+                <div class="cat-grid">
+                    <div class="cat-card cat-tech" onclick="showSection('tecnologia')">
+                        <span class="cat-count">20 cursos</span>
+                        <div class="cat-icon">💻</div>
+                        <h3>Tecnología & IA</h3>
+                        <p>Automatización, marketing digital, IA y soporte técnico.</p>
+                    </div>
+                    <div class="cat-card cat-salud" onclick="showSection('salud')">
+                        <span class="cat-count">20 cursos</span>
+                        <div class="cat-icon">🌱</div>
+                        <h3>Salud & Bienestar</h3>
+                        <p>Nutrición, recetarios, fitness y bienestar emocional.</p>
+                    </div>
+                    <div class="cat-card cat-belleza" onclick="showSection('belleza')">
+                        <span class="cat-count">7 cursos</span>
+                        <div class="cat-icon">✨</div>
+                        <h3>Estética & Belleza</h3>
+                        <p>Uñas, keratina, capilar y especialidades de salón.</p>
+                    </div>
+                </div>
             </section>
 
-            <!-- ================================================================= -->
-            <!-- CATEGORÍA: TECNOLOGÍA (20) -->
-            <!-- ================================================================= -->
-            <h2 class="section-title" id="tecnologia">💻 Hub de Tecnología e Inteligencia Artificial</h2>
-            <div class="grid">
+            <!-- ============================= TECNOLOGÍA ============================= -->
+            <section id="tecnologia" class="page-section">
+                <button class="back-link" onclick="showSection('inicio')">← Volver al inicio</button>
+                <h2 class="section-title">💻 Hub de Tecnología e Inteligencia Artificial</h2>
+                <p class="section-lead">20 cursos para dominar la IA, el marketing digital y la tecnología.</p>
+                <div class="grid">
 
-                <!-- 1 -->
-                <div class="card" onclick="window.location.hash='curso-ia';">
-                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=400&q=80" alt="IA" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Especialización</span>
-                            <h3 class="card-title">Máster en Automatización e IA</h3>
-                            <p class="card-description">Domina la integración de IA y flujos autónomos empresariales.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">32.13 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='curso-ia';">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=400&q=80" alt="IA" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Especialización</span><h3 class="card-title">Máster en Automatización e IA</h3><p class="card-description">Domina la integración de IA y flujos autónomos empresariales.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">32.13 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 2 -->
-                <div class="card" onclick="window.location.hash='curso-negocios';">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" alt="Negocios" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Sistemas</span>
-                            <h3 class="card-title">Master en Automatización de Negocios</h3>
-                            <p class="card-description">Automatiza las operaciones comerciales de tu negocio digital.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">22.40 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='curso-negocios';">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" alt="Negocios" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Sistemas</span><h3 class="card-title">Master en Automatización de Negocios</h3><p class="card-description">Automatiza las operaciones comerciales de tu negocio digital.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">22.40 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 3 -->
-                <div class="card" onclick="window.location.hash='tecnologia-callate-emprende';">
-                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" alt="Emprendimiento" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Especialización</span>
-                            <h3 class="card-title">Cállate y Emprende: Guía Práctica para Emprendedores Tecnológicos</h3>
-                            <p class="card-description">Estrategias y metodologías prácticas para el desarrollo de startups y proyectos tecnológicos.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">9.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-callate-emprende';">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" alt="Emprendimiento" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Especialización</span><h3 class="card-title">Cállate y Emprende: Guía Práctica para Emprendedores Tecnológicos</h3><p class="card-description">Estrategias y metodologías prácticas para el desarrollo de startups y proyectos tecnológicos.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">9.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 4 -->
-                <div class="card" onclick="window.location.hash='tecnologia-google-forms';">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80" alt="Google Forms" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Sistemas</span>
-                            <h3 class="card-title">Google Forms de 0 a Avanzado</h3>
-                            <p class="card-description">Gestión, recopilación de datos y automatización estructurada de formularios profesionales.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">30.46 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-google-forms';">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80" alt="Google Forms" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Sistemas</span><h3 class="card-title">Google Forms de 0 a Avanzado</h3><p class="card-description">Gestión, recopilación de datos y automatización estructurada de formularios profesionales.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">30.46 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 5 -->
-                <div class="card" onclick="window.location.hash='tecnologia-imperio-digital';">
-                    <img src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?auto=format&fit=crop&w=400&q=80" alt="Imperio Digital" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Especialización</span>
-                            <h3 class="card-title">Imperio Digital</h3>
-                            <p class="card-description">Estrategias efectivas de ecosistemas digitales y posicionamiento de marca.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">11.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-imperio-digital';">
+                        <img src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?auto=format&fit=crop&w=400&q=80" alt="Imperio Digital" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Especialización</span><h3 class="card-title">Imperio Digital</h3><p class="card-description">Estrategias efectivas de ecosistemas digitales y posicionamiento de marca.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">11.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 6 -->
-                <div class="card" onclick="window.location.hash='tecnologia-verdad-pantallas';">
-                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=400&q=80" alt="Verdad Oculta" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Sistemas</span>
-                            <h3 class="card-title">Verdad Oculta detrás de las Pantallas</h3>
-                            <p class="card-description">Análisis crítico sobre el impacto oculto de las redes sociales en nuestro entorno diario.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">20.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-verdad-pantallas';">
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=400&q=80" alt="Verdad Oculta" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Sistemas</span><h3 class="card-title">Verdad Oculta detrás de las Pantallas</h3><p class="card-description">Análisis crítico sobre el impacto oculto de las redes sociales en nuestro entorno diario.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">20.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 7 -->
-                <div class="card" onclick="window.location.hash='tecnologia-facebook-ads';">
-                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=400&q=80" alt="Facebook Ads" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Especialización</span>
-                            <h3 class="card-title">Facebook Ads de 0 a Avanzado</h3>
-                            <p class="card-description">Estrategias efectivas de publicidad, segmentación y optimización de campañas en Meta.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">25.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-facebook-ads';">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=400&q=80" alt="Facebook Ads" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Especialización</span><h3 class="card-title">Facebook Ads de 0 a Avanzado</h3><p class="card-description">Estrategias efectivas de publicidad, segmentación y optimización de campañas en Meta.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">25.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 8 -->
-                <div class="card" onclick="window.location.hash='tecnologia-instagram';">
-                    <img src="https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=400&q=80" alt="Instagram Avanzado" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Sistemas</span>
-                            <h3 class="card-title">Instagram de 0 a Avanzado</h3>
-                            <p class="card-description">Dominio de algoritmos, creación de contenido estratégico y crecimiento orgánico de audiencias.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">15.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-instagram';">
+                        <img src="https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=400&q=80" alt="Instagram" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Sistemas</span><h3 class="card-title">Instagram de 0 a Avanzado</h3><p class="card-description">Dominio de algoritmos, creación de contenido estratégico y crecimiento orgánico de audiencias.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">15.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 9 -->
-                <div class="card" onclick="window.location.hash='tecnologia-chatgpt';">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80" alt="ChatGPT" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Especialización</span>
-                            <h3 class="card-title">Haz que ChatGPT trabaje para ti.</h3>
-                            <p class="card-description">La guía imprescindible para desatar tu potencial e integrar Inteligencia Artificial en tus flujos diarios.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">19.90 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-chatgpt';">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80" alt="ChatGPT" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Especialización</span><h3 class="card-title">Haz que ChatGPT trabaje para ti.</h3><p class="card-description">La guía imprescindible para desatar tu potencial e integrar Inteligencia Artificial en tus flujos diarios.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">19.90 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 10 -->
-                <div class="card" onclick="window.location.hash='tecnologia-soporte-hardware';">
-                    <img src="https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=400&q=80" alt="Soporte Técnico" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Sistemas</span>
-                            <h3 class="card-title">TECNICO DE LAPTOP CELULARES Y PC</h3>
-                            <p class="card-description">Capacitación técnica y procedimientos avanzados para mantenimiento, diagnóstico y reparación de hardware.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">24.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-soporte-hardware';">
+                        <img src="https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=400&q=80" alt="Soporte Técnico" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Sistemas</span><h3 class="card-title">TECNICO DE LAPTOP CELULARES Y PC</h3><p class="card-description">Capacitación técnica y procedimientos avanzados para mantenimiento, diagnóstico y reparación de hardware.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">24.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 11 -->
-                <div class="card" onclick="window.location.hash='tecnologia-automatiza-whatsapp';">
-                    <img src="https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?auto=format&fit=crop&w=400&q=80" alt="WhatsApp Automation" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Sistemas</span>
-                            <h3 class="card-title">AUTOMATIZA TU WHATSAPP</h3>
-                            <p class="card-description">Configuración de flujos autónomos y embudos automatizados comerciales utilizando herramientas ganadoras de mensajería.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">24.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-automatiza-whatsapp';">
+                        <img src="https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?auto=format&fit=crop&w=400&q=80" alt="WhatsApp" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Sistemas</span><h3 class="card-title">AUTOMATIZA TU WHATSAPP</h3><p class="card-description">Configuración de flujos autónomos y embudos automatizados comerciales utilizando herramientas ganadoras de mensajería.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">24.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 12 -->
-                <div class="card" onclick="window.location.hash='tecnologia-domina-chatgpt';">
-                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=400&q=80" alt="AI Communication" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Especialización</span>
-                            <h3 class="card-title">Domina chatgpt</h3>
-                            <p class="card-description">Domina el futuro: Cómo ChatGPT está cambiando el juego de la comunicación y el desarrollo de ideas.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">6.90 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-domina-chatgpt';">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=400&q=80" alt="AI Communication" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Especialización</span><h3 class="card-title">Domina chatgpt</h3><p class="card-description">Domina el futuro: Cómo ChatGPT está cambiando el juego de la comunicación y el desarrollo de ideas.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">6.90 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 13 -->
-                <div class="card" onclick="window.location.hash='tecnologia-ebooks-ia';">
-                    <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=400&q=80" alt="Ebooks con IA" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Especialización</span>
-                            <h3 class="card-title">Usa Inteligencia Artificial para Crear Ebooks Exitosos</h3>
-                            <p class="card-description">Estrategias efectivas para redactar, estructurar y lanzar libros digitales rentables con IA.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">9.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-ebooks-ia';">
+                        <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=400&q=80" alt="Ebooks con IA" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Especialización</span><h3 class="card-title">Usa Inteligencia Artificial para Crear Ebooks Exitosos</h3><p class="card-description">Estrategias efectivas para redactar, estructurar y lanzar libros digitales rentables con IA.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">9.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 14 -->
-                <div class="card" onclick="window.location.hash='tecnologia-domina-canva';">
-                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=400&q=80" alt="Canva Avanzado" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Sistemas</span>
-                            <h3 class="card-title">Domina Canva de Cero a Avanzado</h3>
-                            <p class="card-description">Aprende a diseñar de manera profesional, estructurando contenido de alto impacto visual sin complicaciones.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">19.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-domina-canva';">
+                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=400&q=80" alt="Canva" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Sistemas</span><h3 class="card-title">Domina Canva de Cero a Avanzado</h3><p class="card-description">Aprende a diseñar de manera profesional, estructurando contenido de alto impacto visual sin complicaciones.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">19.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 15 -->
-                <div class="card" onclick="window.location.hash='tecnologia-impresion-3d';">
-                    <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=400&q=80" alt="Impresión 3D" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Sistemas</span>
-                            <h3 class="card-title">Diseño Impresión 3D</h3>
-                            <p class="card-description">Aprende a diseñar y crear tus propias piezas en 3D desde cero en solo unas semanas.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">30.46 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-impresion-3d';">
+                        <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=400&q=80" alt="Impresión 3D" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Sistemas</span><h3 class="card-title">Diseño Impresión 3D</h3><p class="card-description">Aprende a diseñar y crear tus propias piezas en 3D desde cero en solo unas semanas.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">30.46 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 16 -->
-                <div class="card" onclick="window.location.hash='tecnologia-herramientas-ia';">
-                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=400&q=80" alt="Herramientas IA" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Especialización</span>
-                            <h3 class="card-title">Mejores Herramientas de la Inteligencia Artificial</h3>
-                            <p class="card-description">Compendio estratégico y práctico para dominar e implementar las soluciones de IA más potentes del mercado.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">28.83 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-herramientas-ia';">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=400&q=80" alt="Herramientas IA" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Especialización</span><h3 class="card-title">Mejores Herramientas de la Inteligencia Artificial</h3><p class="card-description">Compendio estratégico y práctico para dominar e implementar las soluciones de IA más potentes del mercado.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">28.83 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 17 -->
-                <div class="card" onclick="window.location.hash='tecnologia-ia-aula';">
-                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=400&q=80" alt="IA Educación" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Especialización</span>
-                            <h3 class="card-title">IA en el Aula: Domina la Inteligencia Artificial para Transformar tu Enseñanza</h3>
-                            <p class="card-description">Herramientas pedagógicas y metodologías de inteligencia artificial orientadas a la optimización de procesos educativos.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">20.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-ia-aula';">
+                        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=400&q=80" alt="IA Educación" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Especialización</span><h3 class="card-title">IA en el Aula: Domina la Inteligencia Artificial para Transformar tu Enseñanza</h3><p class="card-description">Herramientas pedagógicas y metodologías de inteligencia artificial orientadas a la optimización de procesos educativos.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">20.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 18 -->
-                <div class="card" onclick="window.location.hash='tecnologia-reparacion-celulares';">
-                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80" alt="Reparación Celulares" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Sistemas</span>
-                            <h3 class="card-title">Curso para reparaciones de celulares.</h3>
-                            <p class="card-description">Manual técnico práctico y procedimientos paso a paso para el diagnóstico y reparación de dispositivos móviles.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">19.50 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-reparacion-celulares';">
+                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80" alt="Reparación Celulares" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Sistemas</span><h3 class="card-title">Curso para reparaciones de celulares.</h3><p class="card-description">Manual técnico práctico y procedimientos paso a paso para el diagnóstico y reparación de dispositivos móviles.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">19.50 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 19 -->
-                <div class="card" onclick="window.location.hash='tecnologia-imagenes-ia';">
-                    <img src="https://images.unsplash.com/photo-1547954575-855750c57bd3?auto=format&fit=crop&w=400&q=80" alt="Imágenes IA" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Especialización</span>
-                            <h3 class="card-title">Crea imágenes profesionales con inteligencia artificial</h3>
-                            <p class="card-description">Diseño y generación de recursos visuales de alto impacto mediante IA orientados a la conversión comercial en redes sociales.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">9.97 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-imagenes-ia';">
+                        <img src="https://images.unsplash.com/photo-1547954575-855750c57bd3?auto=format&fit=crop&w=400&q=80" alt="Imágenes IA" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Especialización</span><h3 class="card-title">Crea imágenes profesionales con inteligencia artificial</h3><p class="card-description">Diseño y generación de recursos visuales de alto impacto mediante IA orientados a la conversión comercial en redes sociales.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">9.97 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 20 -->
-                <div class="card" onclick="window.location.hash='tecnologia-fundas-celulares';">
-                    <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=400&q=80" alt="Fundas de Celulares" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Especialización</span>
-                            <h3 class="card-title">CREA FUNDAS PARA CELULARES</h3>
-                            <p class="card-description">Aprende el negocio de diseño, personalización y producción de fundas para dispositivos móviles.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">24.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='tecnologia-fundas-celulares';">
+                        <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=400&q=80" alt="Fundas" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Especialización</span><h3 class="card-title">CREA FUNDAS PARA CELULARES</h3><p class="card-description">Aprende el negocio de diseño, personalización y producción de fundas para dispositivos móviles.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">24.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
+
                 </div>
+            </section>
 
-            </div>
+            <!-- ============================= SALUD ============================= -->
+            <section id="salud" class="page-section">
+                <button class="back-link" onclick="showSection('inicio')">← Volver al inicio</button>
+                <h2 class="section-title">🌱 Programas de Salud y Bienestar</h2>
+                <p class="section-lead">20 programas de nutrición, fitness y bienestar para sentirte mejor.</p>
+                <div class="grid">
 
-            <!-- ================================================================= -->
-            <!-- CATEGORÍA: SALUD (20) -->
-            <!-- ================================================================= -->
-            <h2 class="section-title" id="salud">🌱 Programas de Salud y Bienestar</h2>
-            <div class="grid">
-
-                <!-- 21 -->
-                <div class="card" onclick="window.location.hash='salud-diabeticos';">
-                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80" alt="Diabéticos" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">200 Recetas para Diabéticos + Bonos</h3>
-                            <p class="card-description">Guía culinaria saludable y recursos adicionales para el control metabólico.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">19.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-diabeticos';">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80" alt="Diabéticos" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">200 Recetas para Diabéticos + Bonos</h3><p class="card-description">Guía culinaria saludable y recursos adicionales para el control metabólico.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">19.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 22 -->
-                <div class="card" onclick="window.location.hash='salud-keto';">
-                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80" alt="Keto" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Plan 28 Dias Keto</h3>
-                            <p class="card-description">Estructura nutricional paso a paso para el cumplimiento de objetivos cetogénicos.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">25.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-keto';">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80" alt="Keto" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Plan 28 Dias Keto</h3><p class="card-description">Estructura nutricional paso a paso para el cumplimiento de objetivos cetogénicos.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">25.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 23 -->
-                <div class="card" onclick="window.location.hash='salud-bajar-peso';">
-                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=400&q=80" alt="Adelgazar" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">120 Recetas para bajar de peso y desinflamar</h3>
-                            <p class="card-description">Plan de alimentación de 21 días + Bonos incluidos.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">14.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-bajar-peso';">
+                        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=400&q=80" alt="Adelgazar" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">120 Recetas para bajar de peso y desinflamar</h3><p class="card-description">Plan de alimentación de 21 días + Bonos incluidos.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">14.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 24 -->
-                <div class="card" onclick="window.location.hash='salud-adelgazar';">
-                    <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=400&q=80" alt="Nutrición" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">250 Recetas saludables para adelgazar</h3>
-                            <p class="card-description">Compendio de preparaciones equilibradas adaptadas para reducción calórica.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">13.95 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-adelgazar';">
+                        <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=400&q=80" alt="Nutrición" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">250 Recetas saludables para adelgazar</h3><p class="card-description">Compendio de preparaciones equilibradas adaptadas para reducción calórica.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">13.95 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 25 -->
-                <div class="card" onclick="window.location.hash='salud-postres';">
-                    <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=400&q=80" alt="Postres" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Ebook recetario Salud Hecha Postre</h3>
-                            <p class="card-description">Ebook especializado en repostería y preparaciones dulces de base saludable.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">13.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-postres';">
+                        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=400&q=80" alt="Postres" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Ebook recetario Salud Hecha Postre</h3><p class="card-description">Ebook especializado en repostería y preparaciones dulces de base saludable.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">13.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 26 -->
-                <div class="card" onclick="window.location.hash='salud-propito-vida';">
-                    <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=80" alt="Propósito de Vida" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Descubre tu propósito de vida y recupera la ilusión</h3>
-                            <p class="card-description">Guía estratégica y herramientas prácticas para el bienestar emocional y mental.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">12.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-propito-vida';">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=80" alt="Propósito" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Descubre tu propósito de vida y recupera la ilusión</h3><p class="card-description">Guía estratégica y herramientas prácticas para el bienestar emocional y mental.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">12.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 27 -->
-                <div class="card" onclick="window.location.hash='salud-diabeticos-vol2';">
-                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Cocina Diabetes" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">RECETAS PARA PERSONAS DIABETICAS</h3>
-                            <p class="card-description">Compendio técnico culinario enfocado en el manejo calórico y control metabólico.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">19.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-diabeticos-vol2';">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Cocina Diabetes" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">RECETAS PARA PERSONAS DIABETICAS</h3><p class="card-description">Compendio técnico culinario enfocado en el manejo calórico y control metabólico.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">19.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 28 -->
-                <div class="card" onclick="window.location.hash='salud-licuados-verdes';">
-                    <img src="https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=400&q=80" alt="Licuados Verdes" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Licuados Verdes y Nutritivos</h3>
-                            <p class="card-description">Tu ruta hacia la salud y el bienestar potenciando tu cuerpo con el fruto de lo natural.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">9.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-licuados-verdes';">
+                        <img src="https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=400&q=80" alt="Licuados" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Licuados Verdes y Nutritivos</h3><p class="card-description">Tu ruta hacia la salud y el bienestar potenciando tu cuerpo con el fruto de lo natural.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">9.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 29 -->
-                <div class="card" onclick="window.location.hash='salud-adios-acne';">
-                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80" alt="Cuidado de la Piel" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Adiós Acné - 7 Recetas Naturales</h3>
-                            <p class="card-description">7 Jugos naturales y estrategias efectivas para una piel perfecta y libre de impurezas.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">6.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-adios-acne';">
+                        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80" alt="Piel" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Adiós Acné - 7 Recetas Naturales</h3><p class="card-description">7 Jugos naturales y estrategias efectivas para una piel perfecta y libre de impurezas.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">6.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 30 -->
-                <div class="card" onclick="window.location.hash='salud-postres-deliciosos';">
-                    <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=400&q=80" alt="Postres Saludables" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Postres Deliciosos y Saludables</h3>
-                            <p class="card-description">10 Recetas fáciles y equilibradas para disfrutar del dulce de manera completamente sana.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">15.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-postres-deliciosos';">
+                        <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=400&q=80" alt="Postres Saludables" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Postres Deliciosos y Saludables</h3><p class="card-description">10 Recetas fáciles y equilibradas para disfrutar del dulce de manera completamente sana.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">15.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 31 -->
-                <div class="card" onclick="window.location.hash='salud-pizza-todos';">
-                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80" alt="Pizza Saludable" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Pizza Para Todos</h3>
-                            <p class="card-description">Recetario digital de premezclas de harinas para celíacos y masas alternativas fit.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">17.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-pizza-todos';">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80" alt="Pizza" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Pizza Para Todos</h3><p class="card-description">Recetario digital de premezclas de harinas para celíacos y masas alternativas fit.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">17.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 32 -->
-                <div class="card" onclick="window.location.hash='salud-reto-keto-facil';">
-                    <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=400&q=80" alt="Reto Keto Fácil" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Reto Keto Fácil</h3>
-                            <p class="card-description">Programa cetogénico estructurado con menús diarios y estrategias sencillas de adaptación metabólica.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">24.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-reto-keto-facil';">
+                        <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=400&q=80" alt="Reto Keto" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Reto Keto Fácil</h3><p class="card-description">Programa cetogénico estructurado con menús diarios y estrategias sencillas de adaptación metabólica.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">24.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 33 -->
-                <div class="card" onclick="window.location.hash='salud-alimentacion-mascotas';">
-                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=400&q=80" alt="Alimentación Mascotas" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Alimentación Consciente para Mascotas</h3>
-                            <p class="card-description">Mejorá la salud de tu perro y gato utilizando ingredientes naturales y nutrición balanceada.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">14.90 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-alimentacion-mascotas';">
+                        <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=400&q=80" alt="Mascotas" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Alimentación Consciente para Mascotas</h3><p class="card-description">Mejorá la salud de tu perro y gato utilizando ingredientes naturales y nutrición balanceada.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">14.90 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 34 -->
-                <div class="card" onclick="window.location.hash='salud-secreto-vitalidad';">
-                    <img src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?auto=format&fit=crop&w=400&q=80" alt="Estilo de Vida Vital" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">El Secreto de la Vitalidad</h3>
-                            <p class="card-description">Ebook especializado de 75 páginas con consejos de longevidad para disfrutar plenamente tus 50+.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">9.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-secreto-vitalidad';">
+                        <img src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?auto=format&fit=crop&w=400&q=80" alt="Vitalidad" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">El Secreto de la Vitalidad</h3><p class="card-description">Ebook especializado de 75 páginas con consejos de longevidad para disfrutar plenamente tus 50+.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">9.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 35 -->
-                <div class="card" onclick="window.location.hash='salud-ayuno';">
-                    <img src="https://images.unsplash.com/photo-1494597564530-871f2b93ac55?auto=format&fit=crop&w=400&q=80" alt="Ayuno Intermitente" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Guía Completa de Ayuno Intermitente</h3>
-                            <p class="card-description">Protocolos y cronogramas adaptados para optimizar la flexibilidad metabólica.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">12.50 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-ayuno';">
+                        <img src="https://images.unsplash.com/photo-1494597564530-871f2b93ac55?auto=format&fit=crop&w=400&q=80" alt="Ayuno" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Guía Completa de Ayuno Intermitente</h3><p class="card-description">Protocolos y cronogramas adaptados para optimizar la flexibilidad metabólica.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">12.50 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 36 -->
-                <div class="card" onclick="window.location.hash='salud-jugos';">
-                    <img src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=400&q=80" alt="Jugoterapia" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Jugoterapia: Desintoxicación Orgánica</h3>
-                            <p class="card-description">Protocolos y combinaciones vegetales para potenciar los sistemas depurativos.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">10.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-jugos';">
+                        <img src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=400&q=80" alt="Jugoterapia" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Jugoterapia: Desintoxicación Orgánica</h3><p class="card-description">Protocolos y combinaciones vegetales para potenciar los sistemas depurativos.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">10.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 37 -->
-                <div class="card" onclick="window.location.hash='salud-hipertension';">
-                    <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=400&q=80" alt="Control Presión" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Control de la Hipertensión Arterial</h3>
-                            <p class="card-description">Guía de hábitos y pautas nutricionales bajas en sodio para regular la presión arterial.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">15.50 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-hipertension';">
+                        <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=400&q=80" alt="Presión" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Control de la Hipertensión Arterial</h3><p class="card-description">Guía de hábitos y pautas nutricionales bajas en sodio para regular la presión arterial.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">15.50 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 38 -->
-                <div class="card" onclick="window.location.hash='salud-funcional';">
-                    <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=400&q=80" alt="Entrenamiento Funcional" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Entrenamiento Funcional y Movilidad</h3>
-                            <p class="card-description">Rutinas biomecánicas adaptadas para mejorar estabilidad, fuerza y rango articular.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">19.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-funcional';">
+                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=400&q=80" alt="Funcional" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Entrenamiento Funcional y Movilidad</h3><p class="card-description">Rutinas biomecánicas adaptadas para mejorar estabilidad, fuerza y rango articular.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">19.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 39 -->
-                <div class="card" onclick="window.location.hash='salud-meditacion';">
-                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=400&q=80" alt="Mindfulness" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Mindfulness y Reducción del Estrés</h3>
-                            <p class="card-description">Técnicas de respiración y atención plena aplicadas para mitigar el agotamiento mental diario.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">12.50 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-meditacion';">
+                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=400&q=80" alt="Mindfulness" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Mindfulness y Reducción del Estrés</h3><p class="card-description">Técnicas de respiración y atención plena aplicadas para mitigar el agotamiento mental diario.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">12.50 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 40 -->
-                <div class="card" onclick="window.location.hash='salud-longevidad';">
-                    <img src="https://images.unsplash.com/photo-1577003833619-76bbd7f82948?auto=format&fit=crop&w=400&q=80" alt="Nutrición Celular" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Salud</span>
-                            <h3 class="card-title">Nutrición Celular y Longevidad</h3>
-                            <p class="card-description">Estrategias de suplementación y antioxidantes para contrarrestar el envejecimiento prematuro.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">22.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='salud-longevidad';">
+                        <img src="https://images.unsplash.com/photo-1577003833619-76bbd7f82948?auto=format&fit=crop&w=400&q=80" alt="Longevidad" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Salud</span><h3 class="card-title">Nutrición Celular y Longevidad</h3><p class="card-description">Estrategias de suplementación y antioxidantes para contrarrestar el envejecimiento prematuro.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">22.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
+
                 </div>
+            </section>
 
-            </div>
+            <!-- ============================= BELLEZA ============================= -->
+            <section id="belleza" class="page-section">
+                <button class="back-link" onclick="showSection('inicio')">← Volver al inicio</button>
+                <h2 class="section-title">✨ Especialidades de Estética & Belleza</h2>
+                <p class="section-lead">7 cursos profesionales de estética para llevar tu técnica al siguiente nivel.</p>
+                <div class="grid">
 
-            <!-- ================================================================= -->
-            <!-- CATEGORÍA: BELLEZA (7) -->
-            <!-- ================================================================= -->
-            <h2 class="section-title" id="belleza">✨ Especialidades de Estética & Belleza</h2>
-            <div class="grid">
-
-                <!-- 41 -->
-                <div class="card" onclick="window.location.hash='belleza-capilografo';">
-                    <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=400&q=80" alt="Capilógrafo" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Estética</span>
-                            <h3 class="card-title">Exploración Capilar Avanzada con Capilógrafo</h3>
-                            <p class="card-description">Análisis capilar profesional y protocolos cosméticos de precisión.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">40.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='belleza-capilografo';">
+                        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=400&q=80" alt="Capilógrafo" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Estética</span><h3 class="card-title">Exploración Capilar Avanzada con Capilógrafo</h3><p class="card-description">Análisis capilar profesional y protocolos cosméticos de precisión.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">40.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 42 -->
-                <div class="card" onclick="window.location.hash='belleza-pestanas';">
-                    <img src="https://images.unsplash.com/photo-1583001931096-959e9a1a6223?auto=format&fit=crop&w=400&q=80" alt="Pestañas" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Estética</span>
-                            <h3 class="card-title">Curso Volumen Tecnológico y Fibras Tecnológicas</h3>
-                            <p class="card-description">Técnicas avanzadas de aplicación y diseño de mirada con fibras de última generación.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">47.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='belleza-pestanas';">
+                        <img src="https://images.unsplash.com/photo-1583001931096-959e9a1a6223?auto=format&fit=crop&w=400&q=80" alt="Pestañas" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Estética</span><h3 class="card-title">Curso Volumen Tecnológico y Fibras Tecnológicas</h3><p class="card-description">Técnicas avanzadas de aplicación y diseño de mirada con fibras de última generación.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">47.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 43 -->
-                <div class="card" onclick="window.location.hash='belleza-kit-unas';">
-                    <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?auto=format&fit=crop&w=400&q=80" alt="Maestría en Uñas" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Estética</span>
-                            <h3 class="card-title">Kit Profesional 42 Libros - Maestría en Uñas Acrílicas</h3>
-                            <p class="card-description">Técnicas avanzadas, diseños, cosmetología, dermatología y derechos de reventa.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">50.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='belleza-kit-unas';">
+                        <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?auto=format&fit=crop&w=400&q=80" alt="Uñas" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Estética</span><h3 class="card-title">Kit Profesional 42 Libros - Maestría en Uñas Acrílicas</h3><p class="card-description">Técnicas avanzadas, diseños, cosmetología, dermatología y derechos de reventa.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">50.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 44 -->
-                <div class="card" onclick="window.location.hash='belleza-keratina';">
-                    <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=400&q=80" alt="Keratina" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Estética</span>
-                            <h3 class="card-title">MAESTRIA EN KERATINA: EL SECRETO DE ALISADO PERFECTO</h3>
-                            <p class="card-description">Técnicas profesionales de alisado, tratamiento capilar y acabados de salón de alta gama.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">24.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='belleza-keratina';">
+                        <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=400&q=80" alt="Keratina" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Estética</span><h3 class="card-title">MAESTRIA EN KERATINA: EL SECRETO DE ALISADO PERFECTO</h3><p class="card-description">Técnicas profesionales de alisado, tratamiento capilar y acabados de salón de alta gama.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">24.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 45 -->
-                <div class="card" onclick="window.location.hash='belleza-adelgaza-casa';">
-                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80" alt="Adelgaza en Casa" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Estética</span>
-                            <h3 class="card-title">Adelgaza sin salir de Casa</h3>
-                            <p class="card-description">Programa práctico de rutinas y hábitos para reducir medidas desde la comodidad del hogar.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">37.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='belleza-adelgaza-casa';">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80" alt="Adelgaza en Casa" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Estética</span><h3 class="card-title">Adelgaza sin salir de Casa</h3><p class="card-description">Programa práctico de rutinas y hábitos para reducir medidas desde la comodidad del hogar.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">37.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 46 -->
-                <div class="card" onclick="window.location.hash='belleza-manipulacion-alimentos';">
-                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=400&q=80" alt="Manipulación de Alimentos" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Estética</span>
-                            <h3 class="card-title">Manipulación Segura de los Alimentos</h3>
-                            <p class="card-description">Protocolos de higiene, conservación y manejo seguro para la preparación profesional de alimentos.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">19.99 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='belleza-manipulacion-alimentos';">
+                        <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=400&q=80" alt="Alimentos" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Estética</span><h3 class="card-title">Manipulación Segura de los Alimentos</h3><p class="card-description">Protocolos de higiene, conservación y manejo seguro para la preparación profesional de alimentos.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">19.99 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 47 -->
-                <div class="card" onclick="window.location.hash='belleza-masa-muscular';">
-                    <img src="https://images.unsplash.com/photo-1532384748853-8f54a8f476e2?auto=format&fit=crop&w=400&q=80" alt="Masa Muscular" class="card-image">
-                    <div class="card-content">
-                        <div>
-                            <span class="badge">Estética</span>
-                            <h3 class="card-title">Aumenta Masa Muscular</h3>
-                            <p class="card-description">Plan estructurado de entrenamiento y nutrición para el desarrollo y ganancia muscular efectiva.</p>
-                        </div>
-                        <div class="card-footer-meta">
-                            <div class="price-tag">37.00 <span>USD</span></div>
-                            <span class="btn btn-outline">Ver Detalles</span>
+                    <div class="card" onclick="window.location.hash='belleza-masa-muscular';">
+                        <img src="https://images.unsplash.com/photo-1532384748853-8f54a8f476e2?auto=format&fit=crop&w=400&q=80" alt="Masa Muscular" class="card-image">
+                        <div class="card-content">
+                            <div><span class="badge">Estética</span><h3 class="card-title">Aumenta Masa Muscular</h3><p class="card-description">Plan estructurado de entrenamiento y nutrición para el desarrollo y ganancia muscular efectiva.</p></div>
+                            <div class="card-footer-meta"><div class="price-tag">37.00 <span>USD</span></div><span class="btn btn-outline">Ver Detalles</span></div>
                         </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
+            </section>
 
         </main>
-
     </div>
 
-    <!-- ================================================================= -->
-    <!-- MODALES / VISTAS INTERNAS -->
-    <!-- ================================================================= -->
+    <!-- ============================= MODALES ============================= -->
 
     <!-- TECNOLOGÍA -->
-    <div id="curso-ia" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=500&q=80" alt="IA" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Especialización</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Máster en Automatización e IA</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">32.13 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/A106435547L" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="curso-negocios" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" alt="Negocios" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Sistemas</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Master en Automatización de Negocios</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">22.40 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/B106435549F" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-callate-emprende" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=500&q=80" alt="Emprendimiento" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Especialización</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Cállate y Emprende: Guía Práctica para Emprendedores Tecnológicos</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">9.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/H106520926P" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-google-forms" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="Google Forms" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Sistemas</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Google Forms de 0 a Avanzado</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">30.46 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/P106520933H" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-imperio-digital" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?auto=format&fit=crop&w=500&q=80" alt="Imperio Digital" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Especialización</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Imperio Digital</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">11.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/G106520946N" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-verdad-pantallas" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=500&q=80" alt="Verdad Oculta" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Sistemas</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Verdad Oculta detrás de las Pantallas</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">20.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/F106520955B" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-facebook-ads" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=500&q=80" alt="Facebook Ads" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Especialización</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Facebook Ads de 0 a Avanzado</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">25.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-instagram" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=500&q=80" alt="Instagram Avanzado" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Sistemas</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Instagram de 0 a Avanzado</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">15.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-chatgpt" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80" alt="ChatGPT" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Especialización</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Haz que ChatGPT trabaje para ti.</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">19.90 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/I106521179E" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-soporte-hardware" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=500&q=80" alt="Soporte Técnico" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Sistemas</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">TECNICO DE LAPTOP CELULARES Y PC</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">24.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/R106521260C" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-automatiza-whatsapp" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?auto=format&fit=crop&w=500&q=80" alt="WhatsApp Automation" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Sistemas</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">AUTOMATIZA TU WHATSAPP</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">24.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/L106521276J" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-domina-chatgpt" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=500&q=80" alt="AI Communication" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Especialización</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Domina chatgpt</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">6.90 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/S106521292R" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-ebooks-ia" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=500&q=80" alt="Ebooks con IA" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Especialización</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Usa Inteligencia Artificial para Crear Ebooks Exitosos</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">9.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-domina-canva" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=500&q=80" alt="Canva Avanzado" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Sistemas</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Domina Canva de Cero a Avanzado</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">19.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-impresion-3d" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=500&q=80" alt="Impresión 3D" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Sistemas</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Diseño Impresión 3D</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">30.46 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/B106521331R" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-herramientas-ia" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=500&q=80" alt="Herramientas IA" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Especialización</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Mejores Herramientas de la Inteligencia Artificial</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">28.83 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/D106521345V" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-ia-aula" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=500&q=80" alt="IA Educación" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Especialización</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">IA en el Aula: Domina la Inteligencia Artificial para Transformar tu Enseñanza</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">20.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/F106521358C" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-reparacion-celulares" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80" alt="Reparación Celulares" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Sistemas</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Curso para reparaciones de celulares.</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">19.50 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/K106521361J" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-imagenes-ia" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1547954575-855750c57bd3?auto=format&fit=crop&w=500&q=80" alt="Imágenes IA" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Especialización</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Crea imágenes profesionales con inteligencia artificial</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">9.97 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/O106521369K" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="tecnologia-fundas-celulares" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=500&q=80" alt="Fundas de Celulares" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Especialización</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">CREA FUNDAS PARA CELULARES</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">24.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/T106521493N" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="curso-ia" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=500&q=80" alt="IA" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Especialización</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Máster en Automatización e IA</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">32.13 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/A106435547L" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="curso-negocios" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" alt="Negocios" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Sistemas</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Master en Automatización de Negocios</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">22.40 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/B106435549F" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-callate-emprende" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=500&q=80" alt="Emprendimiento" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Especialización</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Cállate y Emprende: Guía Práctica para Emprendedores Tecnológicos</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">9.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/H106520926P" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-google-forms" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="Google Forms" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Sistemas</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Google Forms de 0 a Avanzado</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">30.46 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/P106520933H" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-imperio-digital" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?auto=format&fit=crop&w=500&q=80" alt="Imperio Digital" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Especialización</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Imperio Digital</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">11.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/G106520946N" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-verdad-pantallas" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=500&q=80" alt="Verdad Oculta" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Sistemas</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Verdad Oculta detrás de las Pantallas</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">20.00 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/F106520955B" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-facebook-ads" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=500&q=80" alt="Facebook Ads" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Especialización</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Facebook Ads de 0 a Avanzado</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">25.00 <span style="font-size: 0.85rem;">USD</span></div><a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-instagram" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=500&q=80" alt="Instagram" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Sistemas</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Instagram de 0 a Avanzado</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">15.00 <span style="font-size: 0.85rem;">USD</span></div><a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-chatgpt" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80" alt="ChatGPT" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Especialización</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Haz que ChatGPT trabaje para ti.</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">19.90 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/I106521179E" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-soporte-hardware" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&w=500&q=80" alt="Soporte" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Sistemas</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">TECNICO DE LAPTOP CELULARES Y PC</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">24.00 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/R106521260C" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-automatiza-whatsapp" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?auto=format&fit=crop&w=500&q=80" alt="WhatsApp" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Sistemas</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">AUTOMATIZA TU WHATSAPP</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">24.00 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/L106521276J" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-domina-chatgpt" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=500&q=80" alt="AI" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Especialización</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Domina chatgpt</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">6.90 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/S106521292R" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-ebooks-ia" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=500&q=80" alt="Ebooks" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Especialización</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Usa Inteligencia Artificial para Crear Ebooks Exitosos</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">9.99 <span style="font-size: 0.85rem;">USD</span></div><a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-domina-canva" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=500&q=80" alt="Canva" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Sistemas</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Domina Canva de Cero a Avanzado</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">19.00 <span style="font-size: 0.85rem;">USD</span></div><a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-impresion-3d" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=500&q=80" alt="3D" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Sistemas</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Diseño Impresión 3D</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">30.46 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/B106521331R" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-herramientas-ia" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=500&q=80" alt="Herramientas IA" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Especialización</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Mejores Herramientas de la Inteligencia Artificial</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">28.83 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/D106521345V" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-ia-aula" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=500&q=80" alt="IA Aula" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Especialización</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">IA en el Aula: Domina la Inteligencia Artificial para Transformar tu Enseñanza</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">20.00 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/F106521358C" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-reparacion-celulares" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80" alt="Reparación" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Sistemas</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Curso para reparaciones de celulares.</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">19.50 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/K106521361J" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-imagenes-ia" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1547954575-855750c57bd3?auto=format&fit=crop&w=500&q=80" alt="Imágenes IA" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Especialización</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Crea imágenes profesionales con inteligencia artificial</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">9.97 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/O106521369K" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="tecnologia-fundas-celulares" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=500&q=80" alt="Fundas" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Especialización</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">CREA FUNDAS PARA CELULARES</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">24.00 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/T106521493N" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
 
     <!-- SALUD -->
-    <div id="salud-diabeticos" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=500&q=80" alt="Diabéticos" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">200 Recetas para Diabéticos + Bonos</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">19.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/D106435780T" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-keto" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=80" alt="Keto" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Plan 28 Dias Keto</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">25.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/O106435790V" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-bajar-peso" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=500&q=80" alt="Adelgazar" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">120 Recetas para bajar de peso y desinflamar</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">14.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/E106435792I" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-adelgazar" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=500&q=80" alt="Nutrición" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">250 Recetas saludables para adelgazar</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">13.95 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-postres" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=500&q=80" alt="Postres" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Ebook recetario Salud Hecha Postre</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">13.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/T106435803O" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-propito-vida" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=500&q=80" alt="Propósito de Vida" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Descubre tu propósito de vida y recupera la ilusión</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">12.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/M106521607M" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-diabeticos-vol2" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=500&q=80" alt="Cocina Diabetes" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">RECETAS PARA PERSONAS DIABETICAS</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">19.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/F106521622Q" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-licuados-verdes" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=500&q=80" alt="Licuados Verdes" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Licuados Verdes y Nutritivos</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">9.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/V106521830C" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-adios-acne" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=500&q=80" alt="Cuidado de la Piel" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Adiós Acné - 7 Recetas Naturales</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">6.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/R106521865U" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-postres-deliciosos" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80" alt="Postres Saludables" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">POSTRES DELICIOSOS Y SALUDABLES 10 Recetas Fáciles</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">15.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/Y106521885D" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-pizza-todos" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80" alt="Pizza Saludable" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Pizza Para Todos</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">17.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/B106521895X" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-reto-keto-facil" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=500&q=80" alt="Reto Keto Fácil" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Reto Keto Fácil</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">24.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/P106521913I" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-alimentacion-mascotas" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=500&q=80" alt="Alimentación Mascotas" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Alimentación Consciente para Mascotas</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">14.90 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/X106521931Y" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-secreto-vitalidad" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?auto=format&fit=crop&w=500&q=80" alt="Estilo de Vida Vital" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">El Secreto de la Vitalidad</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">9.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/T106521937G" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-ayuno" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1494597564530-871f2b93ac55?auto=format&fit=crop&w=500&q=80" alt="Ayuno Intermitente" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Guía Completa de Ayuno Intermitente</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">12.50 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-jugos" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=500&q=80" alt="Jugoterapia" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Jugoterapia: Desintoxicación Orgánica</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">10.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-hipertension" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=500&q=80" alt="Control Presión" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Control de la Hipertensión Arterial</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">15.50 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-funcional" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=500&q=80" alt="Entrenamiento Funcional" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Entrenamiento Funcional y Movilidad</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">19.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-meditacion" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=500&q=80" alt="Mindfulness" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Mindfulness y Reducción del Estrés</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">12.50 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="salud-longevidad" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1577003833619-76bbd7f82948?auto=format&fit=crop&w=500&q=80" alt="Nutrición Celular" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Salud</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Nutrición Celular y Longevidad</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">22.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="salud-diabeticos" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=500&q=80" alt="Diabéticos" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">200 Recetas para Diabéticos + Bonos</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">19.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/D106435780T" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-keto" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=80" alt="Keto" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Plan 28 Dias Keto</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">25.00 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/O106435790V" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-bajar-peso" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=500&q=80" alt="Adelgazar" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">120 Recetas para bajar de peso y desinflamar</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">14.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/E106435792I" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-adelgazar" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=500&q=80" alt="Nutrición" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">250 Recetas saludables para adelgazar</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">13.95 <span style="font-size: 0.85rem;">USD</span></div><a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-postres" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=500&q=80" alt="Postres" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Ebook recetario Salud Hecha Postre</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">13.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/T106435803O" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-propito-vida" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=500&q=80" alt="Propósito" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Descubre tu propósito de vida y recupera la ilusión</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">12.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/M106521607M" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-diabeticos-vol2" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=500&q=80" alt="Cocina Diabetes" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">RECETAS PARA PERSONAS DIABETICAS</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">19.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/F106521622Q" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-licuados-verdes" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=500&q=80" alt="Licuados" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Licuados Verdes y Nutritivos</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">9.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/V106521830C" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-adios-acne" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=500&q=80" alt="Piel" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Adiós Acné - 7 Recetas Naturales</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">6.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/R106521865U" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-postres-deliciosos" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80" alt="Postres" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">POSTRES DELICIOSOS Y SALUDABLES 10 Recetas Fáciles</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">15.00 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/Y106521885D" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-pizza-todos" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80" alt="Pizza" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Pizza Para Todos</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">17.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/B106521895X" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-reto-keto-facil" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=500&q=80" alt="Reto Keto" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Reto Keto Fácil</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">24.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/P106521913I" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-alimentacion-mascotas" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=500&q=80" alt="Mascotas" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Alimentación Consciente para Mascotas</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">14.90 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/X106521931Y" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-secreto-vitalidad" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?auto=format&fit=crop&w=500&q=80" alt="Vitalidad" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">El Secreto de la Vitalidad</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">9.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/T106521937G" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-ayuno" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1494597564530-871f2b93ac55?auto=format&fit=crop&w=500&q=80" alt="Ayuno" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Guía Completa de Ayuno Intermitente</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">12.50 <span style="font-size: 0.85rem;">USD</span></div><a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-jugos" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=500&q=80" alt="Jugoterapia" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Jugoterapia: Desintoxicación Orgánica</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">10.00 <span style="font-size: 0.85rem;">USD</span></div><a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-hipertension" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=500&q=80" alt="Presión" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Control de la Hipertensión Arterial</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">15.50 <span style="font-size: 0.85rem;">USD</span></div><a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-funcional" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=500&q=80" alt="Funcional" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Entrenamiento Funcional y Movilidad</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">19.99 <span style="font-size: 0.85rem;">USD</span></div><a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-meditacion" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=500&q=80" alt="Mindfulness" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Mindfulness y Reducción del Estrés</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">12.50 <span style="font-size: 0.85rem;">USD</span></div><a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="salud-longevidad" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1577003833619-76bbd7f82948?auto=format&fit=crop&w=500&q=80" alt="Longevidad" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Salud</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Nutrición Celular y Longevidad</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">22.00 <span style="font-size: 0.85rem;">USD</span></div><a href="#" class="btn btn-blue" style="padding: 0.6rem 1.5rem;" onclick="alert('Hotlink pendiente de configuración.'); return false;">Inscribirse Ahora</a></div></div></div></div>
 
     <!-- BELLEZA -->
-    <div id="belleza-capilografo" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=500&q=80" alt="Capilógrafo" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Estética</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Exploración Capilar Avanzada con Capilógrafo</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">40.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/M106520905W" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="belleza-pestanas" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1583001931096-959e9a1a6223?auto=format&fit=crop&w=500&q=80" alt="Pestañas" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Estética</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Curso Volumen Tecnológico y Fibras Tecnológicas</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">47.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/V106520913T" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="belleza-kit-unas" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?auto=format&fit=crop&w=500&q=80" alt="Maestría en Uñas" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Estética</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Kit Profesional 42 Libros - Maestría en Uñas Acrílicas</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">50.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/O106521580X" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="belleza-keratina" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=500&q=80" alt="Keratina" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Estética</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">MAESTRIA EN KERATINA: EL SECRETO DE ALISADO PERFECTO</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">24.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/P106521847A" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="belleza-adelgaza-casa" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=500&q=80" alt="Adelgaza en Casa" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Estética</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Adelgaza sin salir de Casa</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">37.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/E106521663Y" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="belleza-manipulacion-alimentos" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=500&q=80" alt="Manipulación de Alimentos" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Estética</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Manipulación Segura de los Alimentos</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">19.99 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/Q106521809E" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="belleza-masa-muscular" class="modal">
-        <div class="modal-content">
-            <a href="#" class="close-modal">&times;</a>
-            <img src="https://images.unsplash.com/photo-1532384748853-8f54a8f476e2?auto=format&fit=crop&w=500&q=80" alt="Masa Muscular" style="width:100%; height:160px; object-fit:cover;">
-            <div class="modal-body">
-                <span class="badge">Estética</span>
-                <h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Aumenta Masa Muscular</h2>
-                <div class="card-footer-meta" style="margin-top: 1.5rem;">
-                    <div class="price-tag" style="font-size: 1.6rem;">37.00 <span style="font-size: 0.85rem;">USD</span></div>
-                    <a href="https://go.hotmart.com/C106521818V" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="belleza-capilografo" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=500&q=80" alt="Capilógrafo" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Estética</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Exploración Capilar Avanzada con Capilógrafo</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">40.00 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/M106520905W" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="belleza-pestanas" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1583001931096-959e9a1a6223?auto=format&fit=crop&w=500&q=80" alt="Pestañas" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Estética</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Curso Volumen Tecnológico y Fibras Tecnológicas</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">47.00 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/V106520913T" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="belleza-kit-unas" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?auto=format&fit=crop&w=500&q=80" alt="Uñas" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Estética</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Kit Profesional 42 Libros - Maestría en Uñas Acrílicas</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">50.00 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/O106521580X" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="belleza-keratina" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=500&q=80" alt="Keratina" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Estética</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">MAESTRIA EN KERATINA: EL SECRETO DE ALISADO PERFECTO</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">24.00 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/P106521847A" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="belleza-adelgaza-casa" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=500&q=80" alt="Adelgaza Casa" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Estética</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Adelgaza sin salir de Casa</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">37.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/E106521663Y" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="belleza-manipulacion-alimentos" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=500&q=80" alt="Alimentos" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Estética</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Manipulación Segura de los Alimentos</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">19.99 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/Q106521809E" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
+    <div id="belleza-masa-muscular" class="modal"><div class="modal-content"><a href="#" class="close-modal">&times;</a><img src="https://images.unsplash.com/photo-1532384748853-8f54a8f476e2?auto=format&fit=crop&w=500&q=80" alt="Masa Muscular" style="width:100%; height:160px; object-fit:cover;"><div class="modal-body"><span class="badge">Estética</span><h2 class="card-title" style="font-size: 1.4rem; margin-top: 0.3rem;">Aumenta Masa Muscular</h2><div class="card-footer-meta" style="margin-top: 1.5rem;"><div class="price-tag" style="font-size: 1.6rem;">37.00 <span style="font-size: 0.85rem;">USD</span></div><a href="https://go.hotmart.com/C106521818V" target="_blank" class="btn btn-blue" style="padding: 0.6rem 1.5rem;">Inscribirse Ahora</a></div></div></div></div>
 
     <footer>
         &copy; 2026 Core Nexus Global. Arquitectura e Infraestructuras de Alta Disponibilidad.
     </footer>
+
+    <script>
+        function showSection(id) {
+            // ocultar todas
+            document.querySelectorAll('.page-section').forEach(function(s) {
+                s.classList.remove('visible');
+            });
+            // mostrar la elegida
+            var target = document.getElementById(id);
+            if (target) target.classList.add('visible');
+
+            // estado activo en el menú
+            document.querySelectorAll('nav button').forEach(function(b) {
+                b.classList.toggle('active', b.getAttribute('data-nav') === id);
+            });
+
+            // animación escalonada de las tarjetas de esa sección
+            var grids = target ? target.querySelectorAll('.grid') : [];
+            grids.forEach(function(grid) {
+                grid.classList.remove('animate-in');
+                void grid.offsetWidth; // reiniciar animación
+                grid.classList.add('animate-in');
+                var cards = grid.querySelectorAll('.card');
+                cards.forEach(function(card, i) {
+                    card.style.animationDelay = (i * 0.05) + 's';
+                });
+            });
+
+            // subir al inicio de la página
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // animar destacados al cargar
+        window.addEventListener('DOMContentLoaded', function() {
+            showSection('inicio');
+        });
+    </script>
 
 </body>
 </html>
